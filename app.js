@@ -43,13 +43,6 @@ function draw(force = false) {
   if (!terminal) return;
   drawIE15Screen(ctx, terminal);
 }
-function readout() {
-  if (!machine?.inGame) return;
-  const stats = machine.stats();
-  $('people').firstChild.textContent = String(stats.people).padStart(2, '0');
-  $('enemies').textContent = String(stats.remaining).padStart(2, '0');
-  $('kills').textContent = String(stats.destroyed).padStart(2, '0');
-}
 function clearControls() {
   held.clear();
   if (direction && machine?.inGame) machine.send(53);
@@ -86,7 +79,7 @@ function begin() {
     $('pause').disabled = false; $('pause').textContent = 'Пауза';
     $('restart').disabled = false; $('status').textContent = 'НА СВЯЗИ';
     message('Стрелки — движение и остановка. 4 / 5 / 6 — управление с инерцией; 1 / 2 / 3 — скорость.');
-    canvas.focus({ preventScroll: true }); draw(true); readout();
+    canvas.focus({ preventScroll: true }); draw(true);
   } catch (error) { fail(error); }
 }
 function fail(error) {
@@ -117,7 +110,7 @@ function frame(time) {
           message('Результаты — на оригинальном экране. Нажмите Enter или «Новая игра», чтобы сыграть ещё.');
         }
       }
-      draw(); readout();
+      draw();
     } catch (error) { fail(error); }
   }
   requestAnimationFrame(frame);

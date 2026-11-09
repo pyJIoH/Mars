@@ -3,22 +3,175 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#101310">
-  <meta name="description" content="МАРС: Возвращение. Подлинная игра с советского ДВК снова жива: оригинальный код, зелёный экран и четырнадцать жизней, которые нужно защитить.">
-  <title>МАРС: Возвращение — игра с зелёного экрана</title>
+  <meta name="theme-color" content="#171917">
+  <meta name="description" content="МАРС для ДВК — браузерный порт оригинальной игры. Интерпретатор PDP-11 исполняет неизменённый MARS.SAV.">
+  <title>МАРС — оригинальная игра для ДВК</title>
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwNzEwMGEiLz48cGF0aCBkPSJNMTAgNDNWMjFoOGwxNCAxNCAxNC0xNGg4djIyaC04VjMxTDMyIDQ1IDE4IDMxdjEyWiIgZmlsbD0iIzhlZGI4YyIvPjwvc3ZnPgo=" type="image/svg+xml">
-  <style>:root{color-scheme:dark;--bg:#101310;--ink:#d6ded0;--muted:#87907e;--green:#a6dc90;--line:#31382d;--mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);scroll-behavior:smooth}
-*{box-sizing:border-box}body{margin:0}button,select{font:inherit}button{cursor:pointer;touch-action:manipulation}button:disabled{cursor:default;opacity:.45}a{color:inherit}button:focus-visible,a:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--green);outline-offset:5px}.page{max-width:1232px;margin:auto;padding:0 56px}.masthead{height:94px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);font:10px var(--mono);letter-spacing:1.5px}.wordmark{display:flex;gap:13px;align-items:center;text-decoration:none}.mark{font:bold 32px/1 var(--mono);color:var(--green);transform:rotate(180deg)}.archive-label{color:var(--muted);display:flex;align-items:center;gap:10px}i{display:inline-block;background:var(--green);width:5px;height:5px;border-radius:50%}.intro{padding:62px 0 48px;display:flex;align-items:flex-end;justify-content:space-between}.eyebrow{font:10px var(--mono);letter-spacing:1.8px;color:var(--muted)}h1{font-size:112px;font-weight:800;line-height:.93;letter-spacing:-8px;margin:17px 0 11px;color:#e1e9d9}h1 span{color:var(--green)}.subtitle{font:12px var(--mono);letter-spacing:9px;margin-left:5px;color:var(--green)}.intro-copy{width:270px;padding-bottom:2px}.intro-copy p{font-size:16px;line-height:1.6;margin:0 0 20px;color:#a3ad9b}.text-link{font:11px var(--mono);text-decoration:none;display:inline-flex;gap:35px;border-bottom:1px solid #556249;padding-bottom:7px}.text-link span{color:var(--green)}
-.monitor-top{height:46px;border:1px solid #394334;border-bottom:0;background:#1d251d;display:flex;align-items:center;justify-content:space-between;padding:0 21px;border-radius:8px 8px 0 0;font:10px var(--mono);letter-spacing:2px}.monitor-name{display:flex;align-items:center;gap:10px;color:#b7c0a9}.monitor-name span{color:#6c7c62;margin-left:9px}.monitor-actions{display:flex;gap:18px;align-items:center;color:#829674}#status{font-size:9px;letter-spacing:1px}.icon-button{border:0;background:transparent;color:#a2b493;font:20px var(--mono);padding:5px;position:relative}.sound-slash{position:absolute;left:8px;top:4px;font-size:20px;color:#c0cbb5}.icon-button[aria-pressed=true] .sound-slash{display:none}.monitor{padding:20px 22px 0;background:linear-gradient(140deg,#232c22,#1a211b);border:1px solid #394334;border-top:0;border-radius:0 0 9px 9px;box-shadow:0 20px 50px #0003}.screen{position:relative;background:#07110b;border:2px solid #0b0f0a;border-radius:10px;overflow:hidden;isolation:isolate;box-shadow:0 0 0 1px #394233,0 3px 12px #0009 inset;aspect-ratio:5/3}canvas{display:block;width:100%;height:100%;position:relative;outline-offset:-4px}.screen-glass{pointer-events:none;position:absolute;z-index:2;inset:0;background:repeating-linear-gradient(0deg,#0000 0px,#0000 2px,#0002 3px,#0002 4px);box-shadow:0 0 65px 8px #0008 inset;border-radius:8px;opacity:.5}.screen-glass:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,#a1ff9010,#0000 70%)}
-.start-panel,.pause-panel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--green);text-align:center;background:radial-gradient(ellipse at center,#0c1c11e8,#06100aee);padding:16px;z-index:3;font-family:var(--mono)}[hidden]{display:none!important}.screen-eyebrow{font:10px var(--mono);letter-spacing:2px;color:#739b65}.cursor{animation:blink 1.1s step-end infinite}@keyframes blink{50%{opacity:0}}.alien{font:bold 33px var(--mono);letter-spacing:1px;margin:27px 0 21px;color:#a9e990;text-shadow:0 0 18px #8bdf6470}.start-panel h2{font:22px var(--mono);letter-spacing:3px;margin:0 0 15px}.start-panel p{font:12px/1.8 var(--mono);color:#7eaa70;margin:0 0 28px}.level-label{font:9px var(--mono);letter-spacing:2px;margin:0 0 10px;width:362px;text-align:left}.level-label span{float:right;color:#66875c}.start-controls{display:flex;gap:9px;width:362px}.start-controls select{min-width:0;width:47%;border:1px solid #446039;border-radius:0;padding:13px 9px;background:#0b190e;color:#a4c794;font:11px var(--mono)}.start-button{border:1px solid var(--green);background:var(--green);color:#101d0b;font:bold 11px var(--mono);letter-spacing:1px;padding:15px 22px;transition:background .15s}.start-controls .start-button{flex:1;padding:13px 12px}.start-button:hover{background:#c6efb6}.start-note{font:8px var(--mono);letter-spacing:1.5px;color:#66865b;margin-top:27px}.pause-panel{background:#07110bee;gap:24px}.pause-panel h2{font:40px var(--mono);letter-spacing:5px;margin:0}.monitor-bottom{height:33px;display:flex;justify-content:space-between;align-items:center;color:#75826b;font:8px var(--mono);letter-spacing:1px}.power-led{width:4px;height:4px;border-radius:50%;background:#a1d58b;box-shadow:0 0 8px #b8ed9d70}
-.game-toolbar{display:flex;align-items:center;justify-content:space-between;padding:20px 2px 27px;color:#8e9985;font:10px var(--mono);gap:12px}.key-guide{display:flex;align-items:center;gap:24px}.key-guide>span{display:flex;align-items:center;gap:6px}kbd{font:10px var(--mono);color:#bac6b0;border:1px solid #424d3b;border-bottom:2px solid #424d3b;border-radius:3px;min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;background:#1a2118}.space-key{padding:0 9px;font-size:8px}.toolbar-actions{white-space:nowrap}.toolbar-actions button{background:none;border:none;color:#a7b79a;padding:5px;font:10px var(--mono)}.toolbar-actions>span{color:#3c4835;margin:0 7px}.toolbar-actions button:hover{color:var(--green)}.readout{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 0;display:grid;grid-template-columns:1.1fr 1.1fr .8fr 1fr;gap:25px}.readout>div:not(:first-child){border-left:1px solid var(--line);padding-left:28px}.readout-label{font:8px var(--mono);letter-spacing:1.2px;color:var(--muted);display:block;margin-bottom:10px}.readout-value{font:28px var(--mono);color:var(--green)}.readout-value>span{font-size:14px;color:#718266}.readout-note{display:flex;align-items:center;gap:18px}.tiny-person{font:14px/1.05 var(--mono);white-space:pre;color:var(--green)}.readout-note p{font:10px/1.7 var(--mono);color:var(--muted);margin:0}.message{min-height:15px;margin:8px 0 0;color:#a3b194;font:10px/1.5 var(--mono)}.touch-controls{display:none}
-.field-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:38px;padding:49px 0 61px;border-bottom:1px solid var(--line)}.note-number{font:9px var(--mono);letter-spacing:1.5px;color:#829575}.field-notes pre{height:59px;margin:24px 0 16px;font:14px/1.15 var(--mono);color:var(--green);display:flex;align-items:center;white-space:pre}.field-notes h3{font-size:14px;font-weight:400;margin:0 0 11px;color:#c5d1ba}.field-notes p{font-size:12px;line-height:1.8;color:var(--muted);margin:0}.history{display:grid;grid-template-columns:1fr 1fr;gap:70px;padding:67px 0 76px;scroll-margin-top:35px}.history h2{font-size:33px;font-weight:400;line-height:1.25;letter-spacing:-1px;margin-top:23px;color:#d3dfc8}.history-copy>p{font-size:13px;line-height:1.9;color:#9aa690;margin:0 0 18px}.history-copy .history-last{color:#bdcdb2;margin-top:25px}details{border-top:1px solid var(--line);margin-top:28px}summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;font:10px/1.5 var(--mono);padding:17px 0;color:#a5b59a}summary::-webkit-details-marker{display:none}summary span{color:var(--green);font-size:15px}details[open] summary span{transform:rotate(45deg)}details p{font-size:11px;line-height:1.9;color:var(--muted)}details a{color:#b5d6a3;text-underline-offset:4px}footer{border-top:1px solid var(--line);padding:24px 0 30px;display:flex;align-items:center;justify-content:space-between;font:8px var(--mono);letter-spacing:1.4px;color:#829575}.footer-star{font-size:19px;color:#a7c397;margin-left:20px;vertical-align:middle}.noscript{position:fixed;bottom:0;left:0;right:0;background:#a6dc90;color:#101310;padding:20px;text-align:center;z-index:10}.monitor:fullscreen{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:18px;background:#070d08}.monitor:fullscreen .screen{width:min(100%,calc((100vh - 60px)*5/3));flex-shrink:0;min-height:0}.monitor:fullscreen .monitor-bottom{width:100%;height:28px}
-@media(max-width:900px){.page{padding:0 30px}.intro{padding-top:44px}.intro-copy{width:235px}.intro-copy p{font-size:14px}h1{font-size:95px}.subtitle{font-size:10px;letter-spacing:8px}.readout{gap:15px}.readout>div:not(:first-child){padding-left:18px}.readout-label{font-size:7px;letter-spacing:.6px}.readout-note{gap:12px}.readout-note p{font-size:9px}.field-notes{gap:25px}.history{gap:40px}.history h2{font-size:28px}.monitor{padding:15px 16px 0}.key-guide{gap:13px}.start-panel p{margin-bottom:18px}.alien{margin:20px 0 15px}.start-note{margin-top:20px}}
-@media(max-width:640px){.page{padding:0 18px}.masthead{height:67px;font-size:8px;letter-spacing:.8px}.mark{font-size:26px}.wordmark{gap:8px}.archive-label{font-size:7px;gap:6px}.intro{padding:34px 0 28px;align-items:center}.eyebrow{font-size:8px;letter-spacing:1px}h1{font-size:76px;letter-spacing:-5px;margin:14px 0 9px}.subtitle{font-size:8px;letter-spacing:6px;margin-left:3px}.intro-copy{width:138px}.intro-copy p{font-size:10px;line-height:1.7;margin-bottom:14px}.text-link{font-size:8px;gap:10px;padding-bottom:5px}.monitor-top{height:38px;padding:0 12px;font-size:8px;letter-spacing:1px}.monitor-name{gap:7px}.monitor-name span{margin-left:3px}.monitor-actions{gap:9px}#status{font-size:7px;letter-spacing:.4px}.icon-button{font-size:18px;padding:4px}.monitor{padding:8px 8px 0}.monitor-bottom{height:25px;font-size:6px}.screen{min-height:270px}.screen-eyebrow{font-size:7px;letter-spacing:1.2px}.alien{font-size:21px;margin:15px 0 12px}.start-panel h2{font-size:15px;letter-spacing:1.6px;margin-bottom:10px}.start-panel p{font-size:9px;line-height:1.6;margin:0 0 17px}.level-label{width:265px;font-size:7px;margin-bottom:7px}.start-controls{width:265px;gap:7px}.start-controls select{font-size:9px;padding:10px 6px}.start-controls .start-button{font-size:9px;padding:11px 7px}.start-note{font-size:6px;letter-spacing:1px;margin-top:17px}.game-toolbar{padding:14px 0 15px;font-size:8px}.key-guide{gap:10px}.key-guide>span{gap:4px;font-size:8px}.key-guide>span:last-child{display:none}kbd{font-size:8px;min-width:18px;height:19px}.space-key{font-size:6px;padding:0 5px}.toolbar-actions button{font-size:8px;padding:3px}.toolbar-actions>span{margin:0 1px}.touch-controls{display:grid;grid-template-columns:1fr .7fr 1fr 1.7fr;gap:8px;margin:0 0 20px}.touch-controls button{background:#1b251a;border:1px solid #3a4a32;border-bottom:3px solid #3a4a32;border-radius:4px;color:#a9cd96;font:19px var(--mono);padding:14px;user-select:none;-webkit-user-select:none;touch-action:none}.touch-controls .touch-fire{font-size:12px;background:#2b3d25;letter-spacing:1px}.touch-controls button:active{background:#48633b}.readout{grid-template-columns:1.25fr 1.2fr .6fr;gap:12px;padding:20px 0}.readout>div:not(:first-child){padding-left:12px}.readout-label{font-size:6px;letter-spacing:.4px;line-height:1.5;min-height:18px;margin-bottom:5px}.readout-value{font-size:24px}.readout-value>span{font-size:11px}.readout .readout-note{display:none}.field-notes{grid-template-columns:1fr;gap:25px;padding:27px 0 36px}.field-notes article{position:relative;padding-left:78px}.field-notes pre{position:absolute;left:0;top:13px;width:65px;font-size:11px;margin:0;height:59px}.note-number{font-size:7px;letter-spacing:1px}.field-notes h3{font-size:12px;margin-top:10px;margin-bottom:6px}.field-notes p{font-size:11px;line-height:1.7}.history{grid-template-columns:1fr;gap:15px;padding:35px 0 34px}.history h2{font-size:29px;margin:17px 0 10px}.history-copy>p{font-size:12px}footer{font-size:6px;letter-spacing:.7px;padding:20px 0}.footer-star{font-size:14px;margin-left:10px}.pause-panel h2{font-size:26px}}
-@media(pointer:coarse) and (min-width:641px){.touch-controls{display:flex;gap:10px;margin-bottom:20px}.touch-controls button{flex:1;background:#1b251a;border:1px solid #3a4a32;border-radius:4px;color:var(--green);padding:16px;touch-action:none}.touch-fire{flex:2!important}}
-canvas:focus,canvas:focus-visible{outline:none}
-#terminal,.rom-art-canvas{image-rendering:pixelated}.rom-art-canvas{max-width:100%;flex-shrink:0}
-@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}.cursor{animation:none}.screen-glass{opacity:.25}*{transition:none!important}}
+  <style>:root {
+  color-scheme: dark;
+  --bg: #171917;
+  --ink: #d2d4cc;
+  --muted: #9a9f93;
+  --green: #a6dc90;
+  --line: #363b32;
+  --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+button:disabled { cursor: default; opacity: .45; }
+a { color: inherit; text-underline-offset: 4px; }
+button:focus-visible, a:focus-visible, select:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 5px;
+}
+.page { max-width: 1040px; margin: auto; padding: 0 40px; }
+.masthead {
+  min-height: 112px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+h1 { margin: 0 0 8px; font: 24px var(--mono); letter-spacing: 3px; }
+.masthead p { margin: 0; font-size: 12px; color: var(--muted); }
+.archive-label { font: 10px var(--mono); color: var(--muted); white-space: nowrap; }
+.game-section { padding-top: 6px; }
+.monitor-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font: 10px var(--mono);
+  letter-spacing: 1px;
+}
+.monitor-name { display: flex; align-items: center; gap: 9px; }
+.monitor-name i { width: 5px; height: 5px; border-radius: 50%; background: #8ba57d; }
+.monitor-name span { margin-left: 5px; }
+.monitor-actions { display: flex; gap: 15px; align-items: center; color: var(--muted); }
+#status { font-size: 9px; letter-spacing: .6px; }
+.icon-button { border: 0; background: transparent; color: #a2ad99; font: 20px var(--mono); padding: 5px; position: relative; }
+.sound-slash { position: absolute; left: 8px; top: 4px; font-size: 20px; color: #c0cbb5; }
+.icon-button[aria-pressed=true] .sound-slash { display: none; }
+.screen { width: 100%; overflow: hidden; isolation: isolate; aspect-ratio: 5/3; }
+canvas { display: block; }
+.screen-glass { pointer-events: none; position: absolute; z-index: 2; inset: 0; }
+.screen-glass::after { content: ""; position: absolute; inset: 0; }
+.start-panel, .pause-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--green);
+  text-align: center;
+  background: #07110bf5;
+  padding: 16px;
+  z-index: 3;
+  font-family: var(--mono);
+}
+[hidden] { display: none !important; }
+.screen-eyebrow { font: 10px var(--mono); letter-spacing: 2px; color: #8eb180; }
+.cursor { animation: blink 1.1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.alien { margin: 24px 0 20px; color: var(--green); }
+.start-panel h2 { font: 22px var(--mono); letter-spacing: 4px; margin: 0 0 15px; }
+.start-panel p { font: 12px/1.8 var(--mono); color: #91b583; margin: 0 0 24px; }
+.level-label { font: 9px var(--mono); letter-spacing: 1px; margin: 0 0 10px; width: min(100%, 362px); text-align: left; }
+.level-label span { float: right; color: #8aa67e; }
+.start-controls { display: flex; gap: 9px; width: min(100%, 362px); }
+.start-controls select { min-width: 0; width: 40%; border: 1px solid #547447; border-radius: 0; padding: 13px 9px; background: #0b190e; color: #b2d0a5; font: 11px var(--mono); }
+.start-button { border: 1px solid var(--green); background: var(--green); color: #101d0b; font: bold 11px var(--mono); letter-spacing: 1px; padding: 15px 22px; }
+.start-controls .start-button { flex: 1; padding: 13px 12px; }
+.start-button:hover { background: #c6efb6; }
+.start-note { font: 9px var(--mono); letter-spacing: 1px; color: #8aa67e; margin-top: 24px; }
+.pause-panel { background: #07110bee; gap: 24px; }
+.pause-panel h2 { font: 32px var(--mono); letter-spacing: 5px; margin: 0; }
+.monitor-bottom { display: flex; justify-content: space-between; align-items: center; }
+.power-led { border-radius: 50%; }
+.game-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 23px 2px 10px; color: var(--muted); font: 10px var(--mono); gap: 12px; }
+.key-guide { display: flex; align-items: center; gap: 22px; }
+.key-guide > span { display: flex; align-items: center; gap: 6px; }
+kbd { font: 10px var(--mono); color: #bac6b0; border: 1px solid #49513f; border-bottom-width: 2px; border-radius: 3px; min-width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; background: #1e231b; }
+.space-key { padding: 0 9px; font-size: 8px; }
+.toolbar-actions { white-space: nowrap; }
+.toolbar-actions button { background: none; border: none; color: #b3beaa; padding: 5px; font: 10px var(--mono); }
+.toolbar-actions > span { color: #63705a; margin: 0 7px; }
+.toolbar-actions button:hover { color: var(--green); }
+.message { min-height: 15px; margin: 8px 0 20px; color: var(--muted); font: 10px/1.6 var(--mono); }
+.touch-controls { display: none; }
+.rules { display: grid; grid-template-columns: 1fr 1fr; gap: 45px; border-top: 1px solid var(--line); padding: 25px 0 30px; }
+.rules h2 { font: 12px var(--mono); font-weight: normal; margin: 0 0 12px; color: #c4ccbd; }
+.rules p { font-size: 12px; line-height: 1.9; color: var(--muted); margin: 0; }
+.rules kbd { min-width: 17px; height: 18px; font-size: 9px; }
+footer { border-top: 1px solid var(--line); padding: 20px 0 26px; display: flex; align-items: center; justify-content: space-between; gap: 20px; font: 10px/1.7 var(--mono); color: var(--muted); }
+footer p { margin: 0; }
+footer nav { display: flex; gap: 18px; white-space: nowrap; }
+.noscript { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green); color: var(--bg); padding: 20px; text-align: center; z-index: 10; }
+.monitor:fullscreen { display: flex; align-items: center; justify-content: center; flex-direction: column; }
+#terminal, .rom-art-canvas { image-rendering: pixelated; }
+.rom-art-canvas { max-width: 100%; flex-shrink: 0; }
+@media (max-width: 900px) {
+  .page { padding: 0 30px; }
+  .key-guide { gap: 13px; }
+  .rules { gap: 30px; }
+  .start-panel p { margin-bottom: 18px; }
+  .alien { margin: 18px 0 15px; }
+  .start-note { margin-top: 18px; }
+}
+@media (max-width: 640px) {
+  .page { padding: 0 16px; }
+  .masthead { min-height: 95px; gap: 10px; }
+  h1 { font-size: 20px; margin-bottom: 7px; }
+  .masthead p { font-size: 10px; }
+  .archive-label { font-size: 8px; }
+  .monitor-top { font-size: 8px; }
+  .monitor-name { gap: 6px; }
+  .monitor-name span { display: none; }
+  .monitor-actions { gap: 8px; }
+  #status { font-size: 7px; letter-spacing: .2px; }
+  .icon-button { font-size: 18px; padding: 4px; }
+  .screen { min-height: 270px; }
+  .screen-eyebrow { font-size: 8px; letter-spacing: 1px; }
+  .alien { margin: 14px 0 12px; }
+  .start-panel { padding: 12px; }
+  .start-panel h2 { font-size: 17px; margin-bottom: 10px; }
+  .start-panel p { font-size: 9px; line-height: 1.6; margin: 0 0 17px; }
+  .level-label { font-size: 8px; margin-bottom: 7px; }
+  .start-controls { gap: 7px; }
+  .start-controls select { font-size: 9px; padding: 10px 6px; }
+  .start-controls .start-button { font-size: 9px; padding: 11px 7px; letter-spacing: 0; }
+  .start-note { font-size: 8px; margin-top: 16px; }
+  .game-toolbar { padding: 18px 0 13px; flex-wrap: wrap; }
+  .key-guide { gap: 12px; flex-wrap: wrap; }
+  .key-guide > span { gap: 4px; font-size: 9px; }
+  kbd { font-size: 9px; min-width: 18px; height: 20px; }
+  .space-key { font-size: 7px; padding: 0 5px; }
+  .toolbar-actions { margin-left: auto; }
+  .toolbar-actions button { font-size: 10px; padding: 7px 3px; }
+  .toolbar-actions > span { margin: 0 4px; }
+  .touch-controls { display: grid; grid-template-columns: 1fr .7fr 1fr 1.7fr; gap: 8px; margin: 0 0 15px; }
+  .touch-controls button { background: #23291f; border: 1px solid #4a5540; border-bottom-width: 3px; border-radius: 4px; color: #b1c8a1; font: 19px var(--mono); padding: 13px 7px; user-select: none; -webkit-user-select: none; touch-action: none; }
+  .touch-controls .touch-fire { font-size: 12px; }
+  .touch-controls button:active { background: #48633b; }
+  .message { margin-bottom: 20px; }
+  .rules { grid-template-columns: 1fr; gap: 22px; padding: 24px 0; }
+  footer { flex-direction: column; align-items: flex-start; gap: 10px; font-size: 9px; padding-bottom: 22px; }
+  .pause-panel h2 { font-size: 26px; }
+}
+@media (pointer: coarse) and (min-width: 641px) {
+  .touch-controls { display: flex; gap: 10px; margin: 12px 0 20px; }
+  .touch-controls button { flex: 1; background: #23291f; border: 1px solid #4a5540; border-radius: 4px; color: var(--green); padding: 16px; touch-action: none; }
+  .touch-fire { flex: 2 !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation: none; }
+}
 
 /* A physical CRT housing. Decoration stays outside the original 80×24 raster. */
 .monitor-top {
@@ -640,13 +793,6 @@ function draw(force = false) {
   if (!terminal) return;
   drawIE15Screen(ctx, terminal);
 }
-function readout() {
-  if (!machine?.inGame) return;
-  const stats = machine.stats();
-  $('people').firstChild.textContent = String(stats.people).padStart(2, '0');
-  $('enemies').textContent = String(stats.remaining).padStart(2, '0');
-  $('kills').textContent = String(stats.destroyed).padStart(2, '0');
-}
 function clearControls() {
   held.clear();
   if (direction && machine?.inGame) machine.send(53);
@@ -683,7 +829,7 @@ function begin() {
     $('pause').disabled = false; $('pause').textContent = 'Пауза';
     $('restart').disabled = false; $('status').textContent = 'НА СВЯЗИ';
     message('Стрелки — движение и остановка. 4 / 5 / 6 — управление с инерцией; 1 / 2 / 3 — скорость.');
-    canvas.focus({ preventScroll: true }); draw(true); readout();
+    canvas.focus({ preventScroll: true }); draw(true);
   } catch (error) { fail(error); }
 }
 function fail(error) {
@@ -714,7 +860,7 @@ function frame(time) {
           message('Результаты — на оригинальном экране. Нажмите Enter или «Новая игра», чтобы сыграть ещё.');
         }
       }
-      draw(); readout();
+      draw();
     } catch (error) { fail(error); }
   }
   requestAnimationFrame(frame);
@@ -810,14 +956,10 @@ requestAnimationFrame(frame);
 <body>
   <div class="page">
     <header class="masthead">
-      <a class="wordmark" href="#"><span class="mark" aria-hidden="true">м</span> АРХИВ ЖИВОГО КОДА</a>
-      <span class="archive-label"><i></i> ДВК / MARS.SAV</span>
+      <div><h1>МАРС</h1><p>Браузерный порт оригинальной игры</p></div>
+      <span class="archive-label">ДВК / RT‑11</span>
     </header>
     <main>
-      <section class="intro" aria-labelledby="title">
-        <div><div class="eyebrow">ИГРА, КОТОРАЯ ПОМНИТ</div><h1 id="title">МАРС<span>.</span></h1><div class="subtitle">ВОЗВРАЩЕНИЕ</div></div>
-        <div class="intro-copy"><p>Чёрный экран. Зелёные символы.<br>И четырнадцать маленьких жизней<br>под твоей защитой.</p><a class="text-link" href="#history">История возвращения <span aria-hidden="true">↙</span></a></div>
-      </section>
       <section class="game-section" aria-label="Игра МАРС">
         <div class="monitor-top"><span class="monitor-name"><i></i> ТЕРМИНАЛ <span>80 × 24</span></span><div class="monitor-actions"><span id="status" role="status">ЗАГРУЗКА</span><button id="sound" class="icon-button" aria-label="Включить звук" aria-pressed="false" title="Звук">♪<span class="sound-slash">/</span></button><button id="fullscreen" class="icon-button" aria-label="Во весь экран" title="Во весь экран">⛶</button></div></div>
         <div class="monitor" id="monitor">
@@ -828,11 +970,11 @@ requestAnimationFrame(frame);
             <div class="start-panel" id="start-panel">
               <div class="screen-eyebrow">СИСТЕМА ГОТОВА<span class="cursor">_</span></div>
               <pre class="alien" aria-hidden="true" data-rom-art data-rom-scale="2">  *&lt;O&gt;*  </pre>
-              <h2>СНОВА НА ПОСТУ.</h2>
-              <p>Не дай бомбам добраться до людей.<br>Прикрой их платформой. Стреляй вверх.</p>
+              <h2>МАРС</h2>
+              <p>Управляйте платформой, стреляйте по марсианам<br>и защищайте людей от бомб.</p>
               <label class="level-label" for="level">ВАШ КЛАСС <span>[0–5]</span></label>
               <div class="start-controls"><select id="level" aria-label="Класс сложности"><option value="0">Класс 0</option><option value="1">Класс 1</option><option value="2">Класс 2</option><option value="3">Класс 3</option><option value="4">Класс 4</option><option value="5">Класс 5</option></select><button id="start" class="start-button" disabled>ЗАГРУЗКА…</button></div>
-              <span class="start-note">ОРИГИНАЛЬНАЯ ПРОГРАММА · НОВАЯ ЖИЗНЬ</span>
+              <span class="start-note">MARS.SAV / RT‑11</span>
             </div>
             <div class="pause-panel" id="pause-panel" hidden><span class="screen-eyebrow">СИГНАЛ ПРИОСТАНОВЛЕН</span><h2>ПАУЗА<span class="cursor">_</span></h2><button id="resume" class="start-button">ПРОДОЛЖИТЬ ↵</button></div>
           </div>
@@ -846,25 +988,14 @@ requestAnimationFrame(frame);
         <div class="monitor-stand" aria-hidden="true"></div>
         <div class="game-toolbar"><div class="key-guide"><span><kbd>←</kbd><kbd>→</kbd> платформа</span><span><kbd class="space-key">ПРОБЕЛ</kbd> огонь</span><span><kbd>P</kbd> пауза</span></div><div class="toolbar-actions"><button id="pause" disabled>Пауза</button><span> / </span><button id="restart" disabled>Новая игра</button></div></div>
         <div class="touch-controls" aria-label="Сенсорное управление"><button data-control="left" aria-label="Влево">←</button><button data-control="stop" aria-label="Остановиться">■</button><button data-control="right" aria-label="Вправо">→</button><button data-control="fire" class="touch-fire" aria-label="Стрелять">ОГОНЬ ↑</button></div>
-        <div class="readout"><div><span class="readout-label">ЛЮДЕЙ ПОД ЗАЩИТОЙ</span><span class="readout-value" id="people">14<span> / 14</span></span></div><div><span class="readout-label">МАРСИАН ОСТАЛОСЬ</span><span class="readout-value" id="enemies">—</span></div><div><span class="readout-label">СБИТО</span><span class="readout-value" id="kills">00</span></div><div class="readout-note"><span class="tiny-person" aria-hidden="true" data-rom-art> O
-/V\
-_M_</span><p>Каждая жизнь<br>имеет значение.</p></div></div>
         <p id="message" class="message" role="status"></p>
       </section>
-      <section class="field-notes" aria-label="Правила игры">
-        <article><span class="note-number">01 / ПРИКРЫВАЙ</span><pre aria-hidden="true" data-rom-art> ==!== </pre><h3>Ты — последняя защита.</h3><p>Двигай платформу навстречу бомбам и перехватывай их выстрелами. На краю экрана платформа разворачивается сама.</p></article>
-        <article><span class="note-number">02 / БЕРЕГИ</span><pre aria-hidden="true" data-rom-art> O     +
-/V\    =
-_M_</pre><h3>Сначала человек. Потом крест.</h3><p>Первое попадание оставит могилку. Второе сотрёт и её. Бомбы уничтожают и людей, и оставшиеся после их гибели крестики.</p></article>
-        <article><span class="note-number">03 / КЛАССЫ</span><pre aria-hidden="true" data-rom-art>0 1 2 3 4 5</pre><h3>Шесть классов.</h3><p>В оригинальной программе можно выбрать класс от 0 до 5. Каждый класс задаёт свой набор параметров игры.</p></article>
-      </section>
-      <section class="history" id="history" aria-labelledby="history-title">
-        <div><span class="eyebrow">ЛИЧНАЯ ИСТОРИЯ / 1989 → СЕГОДНЯ</span><h2 id="history-title">Некоторые игры<br>остаются с нами.</h2></div>
-        <div class="history-copy"><p>В 1989 или 1990 году, ещё в СССР, я впервые увидел компьютер. Он стоял в институте, где работал мой отец. Чёрный экран, светящиеся зелёные символы — и игра, которую я запомнил на всю жизнь.</p><p>Внизу стояли маленькие человечки. Над ними двигалась платформа. Сверху падали бомбы. А когда бомба попадала в человечка, на его месте оставался маленький крестик.</p><p>Спустя почти сорок лет нашлись сохранившиеся файлы «Марса» для ДВК. Теперь оригинальный машинный код снова работает — прямо в браузере.</p><p class="history-last">Маленькая попытка сохранить частичку<br>компьютерного детства конца 1980-х.</p>
-        <details><summary>Что здесь осталось от оригинала <span>+</span></summary><p>Браузер исполняет неизменённый MARS.SAV на эмуляторе команд PDP‑11. Фигурки, движения, столкновения, могилки и система классов определяются оригинальной программой. Терминал воспроизводит экран 80 × 24 и кодировку КОИ‑7.</p><p>Символы рисуются по точкам ПЗУ терминала 15ИЭ‑00‑013: матрица 7 × 8 в ячейке 10 × 11. Восстановленный знакогенератор побайтно совпадает с контрольной суммой, указанной в <a href="https://github.com/mamedev/mame/blob/774a180df2b6ef9c53e48337792256817c50f768/src/devices/machine/ie15.cpp#L507-L575">MAME</a>. Точная модель терминала из воспоминаний пока не установлена.</p><p>Скорость привязана к 50 игровым циклам в секунду; точный темп исторического ДВК ещё требует сравнения с реальным компьютером. Зелёный оттенок, эффекты экрана и его пропорции в браузере не откалиброваны по конкретному историческому монитору. Стрелки, сенсорные кнопки и пауза добавлены для удобства. Рекорды сохраняются только в этом браузере.</p><p><a href="MARS.SAV" download>Скачать MARS.SAV</a> · <a href="MARS.DAT" download>Скачать MARS.DAT</a></p></details></div>
+      <section class="rules" aria-labelledby="rules-title">
+        <div><h2 id="rules-title">Правила</h2><p>Сбивайте марсиан и перехватывайте бомбы, сохраняя 14 людей на земле. На месте погибшего остаётся могилка, которую тоже может разрушить бомба.</p></div>
+        <div><h2>Управление и класс</h2><p><kbd>4</kbd> / <kbd>5</kbd> / <kbd>6</kbd> — влево, стоп, вправо с инерцией; <kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd> — скорость. Перед началом выберите один из шести классов: 0–5.</p></div>
       </section>
     </main>
-    <footer><span>МАРС: ВОЗВРАЩЕНИЕ</span><span>СОХРАНЕНО С ПАМЯТЬЮ<span class="footer-star" aria-hidden="true">✳</span></span></footer>
+    <footer><p>Неизменённый MARS.SAV · интерпретатор PDP‑11</p><nav aria-label="Оригинальные файлы"><a href="MARS.SAV" download>MARS.SAV</a><a href="MARS.DAT" download>MARS.DAT</a></nav></footer>
   </div>
   <noscript><div class="noscript">Для запуска оригинальной игры включите JavaScript в браузере.</div></noscript>
 </body>

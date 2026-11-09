@@ -50,9 +50,10 @@ test('single-file edition boots without a network and supports start, pause, res
     assert.equal(get('start-panel').hidden, true);
     assert.equal(get('status').textContent, 'НА СВЯЗИ');
     assert.ok(paintCalls > 100, 'Original sprites were drawn');
+    const startedPaint = paintCalls;
     let now = performance.now();
     for (let frame = 0; frame < 15; frame++) raf(now += 20);
-    assert.equal(get('enemies').textContent, '45');
+    assert.ok(paintCalls > startedPaint, 'Original screen updates while the game runs');
     get('pause').click();
     assert.equal(get('pause-panel').hidden, false);
     const pausedPaint = paintCalls;
