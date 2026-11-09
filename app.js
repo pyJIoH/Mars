@@ -1,8 +1,14 @@
 import { MarsMachine } from './src/machine.js';
 import { drawIE15Screen, drawIE15Illustrations } from './src/font.js';
+import { CrtDisplay } from './src/crt.js';
 
 const $ = id => document.getElementById(id);
-const canvas = $('terminal'), ctx = canvas.getContext('2d');
+const canvas = $('terminal');
+const raster = document.createElement('canvas');
+raster.width = 800; raster.height = 264;
+const ctx = raster.getContext('2d', { alpha: false });
+const display = new CrtDisplay(canvas);
+let rasterChanged = true;
 const held = new Set();
 let image, originalData, machine, playing = false, paused = false, sound = false;
 let audioContext, previousTime = 0, accumulator = 0, lastRevision = -1;
@@ -39,9 +45,9 @@ function draw(force = false) {
   const terminal = machine?.terminal;
   if (!force && terminal?.revision === lastRevision) return;
   lastRevision = terminal?.revision ?? -1;
-  ctx.fillStyle = '#061009'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-  if (!terminal) return;
-  drawIE15Screen(ctx, terminal);
+  ctx.fillStyle = '#061009'; ctx.fillRect(0, 0, raster.width, raster.height);
+  if (terminal) drawIE15Screen(ctx, terminal);
+  rasterChanged = true;
 }
 function clearControls() {
   held.clear();
@@ -113,6 +119,7 @@ function frame(time) {
       draw();
     } catch (error) { fail(error); }
   }
+  display.render(raster, rasterChanged, elapsed); rasterChanged = false;
   requestAnimationFrame(frame);
 }
 

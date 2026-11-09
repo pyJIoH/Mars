@@ -57,10 +57,8 @@ h1 { margin: 0 0 8px; font: 24px var(--mono); letter-spacing: 3px; }
 .icon-button { border: 0; background: transparent; color: #a2ad99; font: 20px var(--mono); padding: 5px; position: relative; }
 .sound-slash { position: absolute; left: 8px; top: 4px; font-size: 20px; color: #c0cbb5; }
 .icon-button[aria-pressed=true] .sound-slash { display: none; }
-.screen { width: 100%; overflow: hidden; isolation: isolate; aspect-ratio: 5/3; }
+.screen { width: 100%; overflow: hidden; isolation: isolate; aspect-ratio: 4/3; }
 canvas { display: block; }
-.screen-glass { pointer-events: none; position: absolute; z-index: 2; inset: 0; }
-.screen-glass::after { content: ""; position: absolute; inset: 0; }
 .start-panel, .pause-panel {
   position: absolute;
   inset: 0;
@@ -114,7 +112,7 @@ footer p { margin: 0; }
 footer nav { display: flex; gap: 18px; white-space: nowrap; }
 .noscript { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green); color: var(--bg); padding: 20px; text-align: center; z-index: 10; }
 .monitor:fullscreen { display: flex; align-items: center; justify-content: center; flex-direction: column; }
-#terminal, .rom-art-canvas { image-rendering: pixelated; }
+.rom-art-canvas { image-rendering: pixelated; }
 .rom-art-canvas { max-width: 100%; flex-shrink: 0; }
 @media (max-width: 900px) {
   .page { padding: 0 30px; }
@@ -223,8 +221,6 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
     inset -2px -2px 4px #a0a58b66;
 }
 .screen {
-  --raster-x: 20px;
-  --raster-y: 18px;
   position: relative;
   border: 0;
   border-radius: 27px 27px 22px 22px / 25px 25px 20px 20px;
@@ -233,30 +229,12 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
 }
 #terminal {
   position: absolute;
-  top: var(--raster-y);
-  left: var(--raster-x);
-  width: calc(100% - var(--raster-x) * 2);
-  height: calc(100% - var(--raster-y) * 2);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   outline: none;
 }
 #terminal:focus, #terminal:focus-visible { outline: none; }
-.screen-glass {
-  border-radius: inherit;
-  opacity: 1;
-  background:
-    radial-gradient(ellipse at 28% 0, #b9d8a509, transparent 58%),
-    repeating-linear-gradient(0deg, #0000 0 2px, #0002 2px 3px, #0000 3px 4px);
-  box-shadow:
-    inset 0 0 26px 6px #0007,
-    inset 0 1px 1px #afbea526,
-    inset 0 -2px 3px #111b1066;
-}
-.screen-glass::after {
-  border-radius: inherit;
-  background:
-    radial-gradient(ellipse at 50% 40%, transparent 55%, #0003 100%),
-    linear-gradient(165deg, #e5f4d907, transparent 22%);
-}
 .start-panel, .pause-panel { border-radius: inherit; }
 .monitor-bottom {
   height: 70px;
@@ -332,12 +310,12 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
 }
 .monitor:fullscreen::before { display: none; }
 .monitor:fullscreen .crt-bezel {
-  width: min(100%, calc((100dvh - 110px) * 5 / 3));
+  width: min(100%, calc((100dvh - 110px) * 4 / 3));
   flex-shrink: 0;
 }
 .monitor:fullscreen .screen { width: 100%; min-height: 0; }
 .monitor:fullscreen .monitor-bottom {
-  width: min(100%, calc((100dvh - 110px) * 5 / 3));
+  width: min(100%, calc((100dvh - 110px) * 4 / 3));
   height: 50px;
 }
 .monitor:fullscreen .monitor-plate { color: #a6b198; text-shadow: none; }
@@ -346,7 +324,7 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
   .monitor { padding: 24px 25px 0; border-radius: 20px 20px 15px 15px; }
   .monitor::before { top: 9px; }
   .crt-bezel { padding: 13px; border-radius: 34px 34px 28px 28px; }
-  .screen { --raster-x: 16px; --raster-y: 14px; border-radius: 23px; }
+  .screen { border-radius: 23px; }
   .monitor-bottom { height: 61px; }
 }
 @media (max-width: 640px) {
@@ -354,7 +332,7 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
   .monitor { padding: 15px 12px 0; border-radius: 15px 15px 12px 12px; }
   .monitor::before { top: 6px; width: 60px; height: 3px; }
   .crt-bezel { padding: 8px; border-radius: 24px 24px 21px 21px; }
-  .screen { --raster-x: 9px; --raster-y: 10px; border-radius: 17px; }
+  .screen { border-radius: 17px; }
   .monitor-bottom { height: 49px; padding: 0 4px; gap: 12px; }
   .monitor-plate { font-size: 13px; gap: 8px; letter-spacing: 1px; }
   .monitor-plate > span { font-size: 6px; letter-spacing: .5px; }
@@ -364,8 +342,8 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
   .monitor-stand { width: 43%; height: 19px; margin-bottom: 5px; }
   .monitor-stand::after { height: 7px; bottom: -4px; }
   .monitor:fullscreen { padding: 8px; }
-  .monitor:fullscreen .crt-bezel { width: min(100%, calc((100dvh - 78px) * 5 / 3)); }
-  .monitor:fullscreen .monitor-bottom { width: min(100%, calc((100dvh - 78px) * 5 / 3)); height: 40px; }
+  .monitor:fullscreen .crt-bezel { width: min(100%, calc((100dvh - 78px) * 4 / 3)); }
+  .monitor:fullscreen .monitor-bottom { width: min(100%, calc((100dvh - 78px) * 4 / 3)); height: 40px; }
 }
 </style>
   <script type="application/json" id="mars-archive">{"sav":"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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADnd5IHByaWdsYXthZXRlc3ggbmEgbWFyYWZvbnNraWogemFi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ZSCADQphYnNvbGB0bnlqIHJla29yZCB1c3Rhbm93aWwgD4AOc28gc35ldG9tIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","dat":"U0FHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBAAAAAAAAAAAAAAAAAAAAAAC5D0wLAAAAAAAAAAAAADUAAAAAAAAAAAAAAAAAAAAAAAAAgwEAAAAAAAAAAAAANAAAAAAAAAAAAAAAAAAAAAAACAMAAAAAAAAAAAAAAAAxAAAAAAAAAAAAAAAAAAAAAACNCgAAAAAAAAAAAAAAAE5PUgAAAAAAAAAAAAAAAAAAAH4IAAAAAAAAAAAAAAAAR04AAAAAAAAAAAAAAAAAAAAANwgAAAAAAAAAAAAAAAAOd2l0cQAAAAAAAAAAAAAAAABiEQAAAAAAAAAAAAAAAFkAAAAAAAAAAAAAAAAAAAAAADEQAAAAAAAAAAAAAAAAR1sAAAAAAAAAAAAAAAAAAAAANgsAAAAAAAAAAAAAAAAwMDAwMDAwMDAAAAAAAAAAAACACQAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAALkLAAAAAAAAAAAAAAAAVEFOUQAAAAAAAAAAAAAAAAAA+AMAAAAARQEAAAAAAABUVAAAAAAAAAAAAAAAAAAAAAC9CaMFAAAAAAAATAAAAA50YW5xAAAAAAAAAAAAAAAAAA0HAAAAAAAAAAAAAAAARwAAAAAAAAAAAAAAAAAAAAAAuw5DBgAAAAAAAAAAAAAQAwMDMAAAAAAAAAAAAAAAAACQDAAAAAAAAAAAAAAAAFpVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVkYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABTQVNBAAAAAAAAAAAAAAAAAAACDgAA/QIAAAAAAAAAAFUAAAAAAAAAAAAAAAAAAAAAANcKAAAAAAAAAAAAAAAAUk9ST0RPVltSTFJBTEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="}</script><script type="module">// PDP-11 integer interpreter. All machine addresses and registers are 16 bit.
@@ -750,9 +728,171 @@ function drawIE15Illustrations() {
   }
 }
 
+// Curved monochrome CRT. The original 800×264 ROM raster is the only source.
+const CRT_VERTEX = `#version 300 es
+in vec2 corner;
+out vec2 uv;
+void main() {
+  uv = corner * 0.5 + 0.5;
+  gl_Position = vec4(corner, 0.0, 1.0);
+}`;
+
+const CRT_FRAGMENT = `#version 300 es
+precision highp float;
+uniform sampler2D raster;
+uniform vec2 sourceSize;
+uniform float scanlines;
+uniform bool fadeOnly;
+in vec2 uv;
+out vec4 color;
+
+float beam(vec2 p, float level) {
+  // Remove the original green-black background before calculating phosphor glow.
+  return max(0.0, (textureLod(raster, p, level).g - 16.0 / 255.0) / (210.0 / 255.0));
+}
+
+void main() {
+  if (fadeOnly) { color = vec4(0.0); return; }
+  vec2 c = uv * 2.0 - 1.0;
+  const float CURVATURE = 0.025;
+  vec2 p = c * (1.0 + dot(c, c) * CURVATURE) / (1.0 + CURVATURE) * 0.5 + 0.5;
+  vec2 content = (p - 0.5) / vec2(0.95, 0.92) + 0.5;
+  bool inside = all(greaterThanEqual(content, vec2(0.0))) && all(lessThanEqual(content, vec2(1.0)));
+  vec2 side = vec2(0.55 / sourceSize.x, 0.0);
+  float spot = inside ? (beam(content - side, 0.0) + 2.0 * beam(content, 0.0) + beam(content + side, 0.0)) * 0.25 : 0.0;
+  float halo = inside ? beam(content, 3.0) * 0.55 + beam(content, 5.0) * 0.5 : 0.0;
+
+  // The scanlines bow gently across the glass, including its unlit areas.
+  const float GLASS_CURVATURE = 0.035;
+  vec2 glassPoint = c * (1.0 + dot(c, c) * GLASS_CURVATURE) / (1.0 + GLASS_CURVATURE) * 0.5 + 0.5;
+  float line = 0.5 + 0.5 * cos(glassPoint.y * scanlines * 6.2831853);
+  float scan = mix(0.42 + 0.25 * spot, 1.17, line);
+
+  const vec2 halfTube = vec2(4.0 / 3.0, 1.0);
+  const float radius = 0.11;
+  vec2 inner = abs(c) * halfTube - halfTube + radius;
+  float edge = length(max(inner, 0.0)) + min(max(inner.x, inner.y), 0.0) - radius;
+  float shade = mix(0.54, 1.0, smoothstep(0.0, 0.38, -edge));
+  vec2 toSheen = (c - vec2(-0.42, 0.58)) * vec2(1.25, 2.3);
+  float sheen = exp(-dot(toSheen, toSheen)) * 0.035;
+
+  const vec3 phosphor = vec3(0.45, 0.98, 0.57);
+  vec3 lit = phosphor * (spot * 1.20 + halo * 0.32) * scan + vec3(spot * spot * 0.15);
+  vec3 glass = (vec3(0.025, 0.037, 0.029) * mix(0.86, 1.08, line) + lit) * shade + vec3(sheen);
+  float grain = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+  glass += (grain - 0.5) * 2.0 / 255.0;
+  float mask = 1.0 - smoothstep(-0.007, 0.002, edge);
+  color = vec4(mix(vec3(0.014, 0.020, 0.015), glass, mask), 1.0);
+}`;
+
+class CrtDisplay {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.stale = true;
+    this.resetHistory = true;
+    this.lost = false;
+    this.gl = canvas.getContext('webgl2', { alpha: false, antialias: false, preserveDrawingBuffer: true });
+    if (this.gl) {
+      this.init();
+      canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); this.lost = true; });
+      canvas.addEventListener('webglcontextrestored', () => { this.init(); this.lost = false; this.fit(); });
+    } else {
+      this.context = canvas.getContext('2d', { alpha: false });
+    }
+    this.fit();
+    if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => this.fit()).observe(canvas);
+    window.addEventListener('resize', () => this.fit());
+  }
+
+  init() {
+    const gl = this.gl;
+    const compile = (type, text) => {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, text); gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(shader));
+      return shader;
+    };
+    const program = gl.createProgram();
+    const vertex = compile(gl.VERTEX_SHADER, CRT_VERTEX), fragment = compile(gl.FRAGMENT_SHADER, CRT_FRAGMENT);
+    gl.attachShader(program, vertex); gl.attachShader(program, fragment); gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program));
+    gl.deleteShader(vertex); gl.deleteShader(fragment);
+    gl.useProgram(program);
+    gl.bindVertexArray(gl.createVertexArray());
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    const attribute = gl.getAttribLocation(program, 'corner');
+    gl.enableVertexAttribArray(attribute); gl.vertexAttribPointer(attribute, 2, gl.FLOAT, false, 0, 0);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    this.uniforms = Object.fromEntries(['raster', 'sourceSize', 'scanlines', 'fadeOnly'].map(name => [name, gl.getUniformLocation(program, name)]));
+    gl.uniform1i(this.uniforms.raster, 0);
+    gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+    gl.uniform1f(this.uniforms.scanlines, Math.min(288, this.canvas.height / 3));
+    this.stale = this.resetHistory = true;
+  }
+
+  fit() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const width = Math.max(1, Math.round((this.canvas.clientWidth || 800) * dpr));
+    const height = Math.max(1, Math.round((this.canvas.clientHeight || 600) * dpr));
+    if (width === this.canvas.width && height === this.canvas.height) return;
+    this.canvas.width = width; this.canvas.height = height;
+    this.resetHistory = true;
+    if (this.gl && !this.lost) {
+      this.gl.viewport(0, 0, width, height);
+      this.gl.uniform1f(this.uniforms.scanlines, Math.min(288, height / 3));
+    }
+  }
+
+  render(raster, changed, elapsedMs) {
+    if (this.lost) return;
+    this.fit();
+    const gl = this.gl;
+    if (!gl) {
+      if (changed || this.resetHistory) {
+        const ctx = this.context, { width, height } = this.canvas;
+        ctx.imageSmoothingEnabled = false;
+        ctx.fillStyle = '#061009'; ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(raster, width * .025, height * .04, width * .95, height * .92);
+      }
+      this.resetHistory = false;
+      return;
+    }
+    if (changed || this.stale) {
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, raster);
+      gl.generateMipmap(gl.TEXTURE_2D);
+      gl.uniform2f(this.uniforms.sourceSize, raster.width, raster.height);
+      this.stale = false;
+    }
+    if (this.resetHistory) {
+      gl.disable(gl.BLEND); gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+      this.resetHistory = false;
+    } else {
+      gl.enable(gl.BLEND);
+      gl.uniform1i(this.uniforms.fadeOnly, 1);
+      gl.blendEquation(gl.FUNC_ADD); gl.blendFunc(gl.ZERO, gl.CONSTANT_ALPHA);
+      gl.blendColor(0, 0, 0, Math.exp(-Math.max(1, elapsedMs) / 25));
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    gl.uniform1i(this.uniforms.fadeOnly, 0);
+    gl.enable(gl.BLEND); gl.blendEquation(gl.MAX); gl.blendFunc(gl.ONE, gl.ONE);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+}
+
 
 const $ = id => document.getElementById(id);
-const canvas = $('terminal'), ctx = canvas.getContext('2d');
+const canvas = $('terminal');
+const raster = document.createElement('canvas');
+raster.width = 800; raster.height = 264;
+const ctx = raster.getContext('2d', { alpha: false });
+const display = new CrtDisplay(canvas);
+let rasterChanged = true;
 const held = new Set();
 let image, originalData, machine, playing = false, paused = false, sound = false;
 let audioContext, previousTime = 0, accumulator = 0, lastRevision = -1;
@@ -789,9 +929,9 @@ function draw(force = false) {
   const terminal = machine?.terminal;
   if (!force && terminal?.revision === lastRevision) return;
   lastRevision = terminal?.revision ?? -1;
-  ctx.fillStyle = '#061009'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-  if (!terminal) return;
-  drawIE15Screen(ctx, terminal);
+  ctx.fillStyle = '#061009'; ctx.fillRect(0, 0, raster.width, raster.height);
+  if (terminal) drawIE15Screen(ctx, terminal);
+  rasterChanged = true;
 }
 function clearControls() {
   held.clear();
@@ -863,6 +1003,7 @@ function frame(time) {
       draw();
     } catch (error) { fail(error); }
   }
+  display.render(raster, rasterChanged, elapsed); rasterChanged = false;
   requestAnimationFrame(frame);
 }
 
@@ -966,7 +1107,6 @@ requestAnimationFrame(frame);
           <div class="crt-bezel">
           <div class="screen">
             <canvas id="terminal" width="800" height="264" tabindex="0" role="img" aria-label="Зелёный экран игры МАРС со знакогенератором 15ИЭ-00-013. Стрелки — движение, пробел — огонь, P — пауза."></canvas>
-            <div class="screen-glass" aria-hidden="true"></div>
             <div class="start-panel" id="start-panel">
               <div class="screen-eyebrow">СИСТЕМА ГОТОВА<span class="cursor">_</span></div>
               <pre class="alien" aria-hidden="true" data-rom-art data-rom-scale="2">  *&lt;O&gt;*  </pre>

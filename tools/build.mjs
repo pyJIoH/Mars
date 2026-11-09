@@ -7,7 +7,7 @@ for (const file of ['index.html', 'styles.css', 'app.js', 'favicon.svg', 'MARS.S
 await cp(new URL('src/', root), new URL('src/', dist), { recursive: true });
 await cp(new URL('assets/fonts/', root), new URL('assets/fonts/', dist), { recursive: true });
 const read = file => readFile(new URL(file, root), 'utf8');
-const modules = await Promise.all(['src/pdp11.js', 'src/terminal.js', 'src/machine.js', 'src/font-rom.js', 'src/font.js', 'app.js'].map(read));
+const modules = await Promise.all(['src/pdp11.js', 'src/terminal.js', 'src/machine.js', 'src/font-rom.js', 'src/font.js', 'src/crt.js', 'app.js'].map(read));
 const bundle = modules.map(source => source.replace(/^import .*;\r?\n/gm, '').replace(/^export /gm, '')).join('\n');
 const archive = {
   sav: (await readFile(new URL('MARS.SAV', root))).toString('base64'),

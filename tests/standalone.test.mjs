@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import '../tools/build.mjs';
 
-test('single-file edition boots without a network and supports start, pause, resume, restart', async () => {
+test('single-file edition works offline without WebGL and supports start, pause, resume, restart', async () => {
   const html = readFileSync(new URL('../МАРС.html', import.meta.url), 'utf8');
   assert.doesNotMatch(html, /<script[^>]+src=|<link[^>]+href="(?:styles|favicon)/);
   const archive = html.match(/id="mars-archive">([\s\S]*?)<\/script>/)[1];
@@ -27,12 +27,17 @@ test('single-file edition boots without a network and supports start, pause, res
   const get = id => { if (!elements.has(id)) elements.set(id, new Element(id)); return elements.get(id); };
   const keys = {}, windowEvents = {}, storage = new Map();
   const touch = ['left', 'stop', 'right', 'fire'].map(name => { const e = new Element(name); e.dataset.control = name; return e; });
-  let paintCalls = 0, raf;
-  get('terminal').getContext = () => ({ fillRect() { paintCalls++; }, fillText() { throw new Error('System fonts must never draw ROM glyphs'); } });
+  let paintCalls = 0, screenCopies = 0, lastRaster, raf;
+  const rasterContext = { fillRect() { paintCalls++; }, fillText() { throw new Error('System fonts must never draw ROM glyphs'); } };
+  get('terminal').getContext = type => type === 'webgl2' ? null : {
+    fillRect() { paintCalls++; },
+    drawImage(source) { screenCopies++; lastRaster = source; },
+  };
   get('terminal').width = 800; get('terminal').height = 264;
   get('mars-archive').textContent = archive;
   globalThis.document = {
     getElementById: get,
+    createElement: () => ({ getContext: () => rasterContext }),
     querySelector: () => null,
     querySelectorAll: selector => selector === '[data-control]' ? touch : [],
     addEventListener: (name, fn) => { keys[name] = fn; },
@@ -54,11 +59,20 @@ test('single-file edition boots without a network and supports start, pause, res
     let now = performance.now();
     for (let frame = 0; frame < 15; frame++) raf(now += 20);
     assert.ok(paintCalls > startedPaint, 'Original screen updates while the game runs');
+    assert.ok(screenCopies > 0, 'The fallback copies the original raster to the visible screen');
+    assert.equal(lastRaster.width, 800);
+    assert.equal(lastRaster.height, 264);
     get('pause').click();
     assert.equal(get('pause-panel').hidden, false);
     const pausedPaint = paintCalls;
     raf(now += 200);
     assert.equal(paintCalls, pausedPaint);
+    const copiesBeforeResize = screenCopies;
+    get('terminal').clientWidth = 400; get('terminal').clientHeight = 300;
+    windowEvents.resize(); raf(now += 20);
+    assert.equal(get('terminal').width, 400);
+    assert.equal(get('terminal').height, 300);
+    assert.ok(screenCopies > copiesBeforeResize, 'Resizing repaints even while the game is paused');
     get('resume').click();
     assert.equal(get('status').textContent, 'НА СВЯЗИ');
     windowEvents.blur();

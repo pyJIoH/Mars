@@ -48,10 +48,8 @@ h1 { margin: 0 0 8px; font: 24px var(--mono); letter-spacing: 3px; }
 .icon-button { border: 0; background: transparent; color: #a2ad99; font: 20px var(--mono); padding: 5px; position: relative; }
 .sound-slash { position: absolute; left: 8px; top: 4px; font-size: 20px; color: #c0cbb5; }
 .icon-button[aria-pressed=true] .sound-slash { display: none; }
-.screen { width: 100%; overflow: hidden; isolation: isolate; aspect-ratio: 5/3; }
+.screen { width: 100%; overflow: hidden; isolation: isolate; aspect-ratio: 4/3; }
 canvas { display: block; }
-.screen-glass { pointer-events: none; position: absolute; z-index: 2; inset: 0; }
-.screen-glass::after { content: ""; position: absolute; inset: 0; }
 .start-panel, .pause-panel {
   position: absolute;
   inset: 0;
@@ -105,7 +103,7 @@ footer p { margin: 0; }
 footer nav { display: flex; gap: 18px; white-space: nowrap; }
 .noscript { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green); color: var(--bg); padding: 20px; text-align: center; z-index: 10; }
 .monitor:fullscreen { display: flex; align-items: center; justify-content: center; flex-direction: column; }
-#terminal, .rom-art-canvas { image-rendering: pixelated; }
+.rom-art-canvas { image-rendering: pixelated; }
 .rom-art-canvas { max-width: 100%; flex-shrink: 0; }
 @media (max-width: 900px) {
   .page { padding: 0 30px; }
@@ -214,8 +212,6 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
     inset -2px -2px 4px #a0a58b66;
 }
 .screen {
-  --raster-x: 20px;
-  --raster-y: 18px;
   position: relative;
   border: 0;
   border-radius: 27px 27px 22px 22px / 25px 25px 20px 20px;
@@ -224,30 +220,12 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
 }
 #terminal {
   position: absolute;
-  top: var(--raster-y);
-  left: var(--raster-x);
-  width: calc(100% - var(--raster-x) * 2);
-  height: calc(100% - var(--raster-y) * 2);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   outline: none;
 }
 #terminal:focus, #terminal:focus-visible { outline: none; }
-.screen-glass {
-  border-radius: inherit;
-  opacity: 1;
-  background:
-    radial-gradient(ellipse at 28% 0, #b9d8a509, transparent 58%),
-    repeating-linear-gradient(0deg, #0000 0 2px, #0002 2px 3px, #0000 3px 4px);
-  box-shadow:
-    inset 0 0 26px 6px #0007,
-    inset 0 1px 1px #afbea526,
-    inset 0 -2px 3px #111b1066;
-}
-.screen-glass::after {
-  border-radius: inherit;
-  background:
-    radial-gradient(ellipse at 50% 40%, transparent 55%, #0003 100%),
-    linear-gradient(165deg, #e5f4d907, transparent 22%);
-}
 .start-panel, .pause-panel { border-radius: inherit; }
 .monitor-bottom {
   height: 70px;
@@ -323,12 +301,12 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
 }
 .monitor:fullscreen::before { display: none; }
 .monitor:fullscreen .crt-bezel {
-  width: min(100%, calc((100dvh - 110px) * 5 / 3));
+  width: min(100%, calc((100dvh - 110px) * 4 / 3));
   flex-shrink: 0;
 }
 .monitor:fullscreen .screen { width: 100%; min-height: 0; }
 .monitor:fullscreen .monitor-bottom {
-  width: min(100%, calc((100dvh - 110px) * 5 / 3));
+  width: min(100%, calc((100dvh - 110px) * 4 / 3));
   height: 50px;
 }
 .monitor:fullscreen .monitor-plate { color: #a6b198; text-shadow: none; }
@@ -337,7 +315,7 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
   .monitor { padding: 24px 25px 0; border-radius: 20px 20px 15px 15px; }
   .monitor::before { top: 9px; }
   .crt-bezel { padding: 13px; border-radius: 34px 34px 28px 28px; }
-  .screen { --raster-x: 16px; --raster-y: 14px; border-radius: 23px; }
+  .screen { border-radius: 23px; }
   .monitor-bottom { height: 61px; }
 }
 @media (max-width: 640px) {
@@ -345,7 +323,7 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
   .monitor { padding: 15px 12px 0; border-radius: 15px 15px 12px 12px; }
   .monitor::before { top: 6px; width: 60px; height: 3px; }
   .crt-bezel { padding: 8px; border-radius: 24px 24px 21px 21px; }
-  .screen { --raster-x: 9px; --raster-y: 10px; border-radius: 17px; }
+  .screen { border-radius: 17px; }
   .monitor-bottom { height: 49px; padding: 0 4px; gap: 12px; }
   .monitor-plate { font-size: 13px; gap: 8px; letter-spacing: 1px; }
   .monitor-plate > span { font-size: 6px; letter-spacing: .5px; }
@@ -355,6 +333,6 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
   .monitor-stand { width: 43%; height: 19px; margin-bottom: 5px; }
   .monitor-stand::after { height: 7px; bottom: -4px; }
   .monitor:fullscreen { padding: 8px; }
-  .monitor:fullscreen .crt-bezel { width: min(100%, calc((100dvh - 78px) * 5 / 3)); }
-  .monitor:fullscreen .monitor-bottom { width: min(100%, calc((100dvh - 78px) * 5 / 3)); height: 40px; }
+  .monitor:fullscreen .crt-bezel { width: min(100%, calc((100dvh - 78px) * 4 / 3)); }
+  .monitor:fullscreen .monitor-bottom { width: min(100%, calc((100dvh - 78px) * 4 / 3)); height: 40px; }
 }
