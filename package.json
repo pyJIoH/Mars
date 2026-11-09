@@ -1,0 +1,14 @@
+{
+  "name": "mars-return",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The original DVK MARS.SAV running in a browser",
+  "scripts": {
+    "dev": "node tools/serve.mjs",
+    "start": "node tools/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "build": "node tools/build.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

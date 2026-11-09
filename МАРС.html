@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101310">
+  <meta name="description" content="МАРС: Возвращение. Подлинная игра с советского ДВК снова жива: оригинальный код, зелёный экран и четырнадцать жизней, которые нужно защитить.">
+  <title>МАРС: Возвращение — игра с зелёного экрана</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwNzEwMGEiLz48cGF0aCBkPSJNMTAgNDNWMjFoOGwxNCAxNCAxNC0xNGg4djIyaC04VjMxTDMyIDQ1IDE4IDMxdjEyWiIgZmlsbD0iIzhlZGI4YyIvPjwvc3ZnPgo=" type="image/svg+xml">
+  <style>:root{color-scheme:dark;--bg:#101310;--ink:#d6ded0;--muted:#87907e;--green:#a6dc90;--line:#31382d;--mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);scroll-behavior:smooth}
+*{box-sizing:border-box}body{margin:0}button,select{font:inherit}button{cursor:pointer;touch-action:manipulation}button:disabled{cursor:default;opacity:.45}a{color:inherit}button:focus-visible,a:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--green);outline-offset:5px}.page{max-width:1232px;margin:auto;padding:0 56px}.masthead{height:94px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);font:10px var(--mono);letter-spacing:1.5px}.wordmark{display:flex;gap:13px;align-items:center;text-decoration:none}.mark{font:bold 32px/1 var(--mono);color:var(--green);transform:rotate(180deg)}.archive-label{color:var(--muted);display:flex;align-items:center;gap:10px}i{display:inline-block;background:var(--green);width:5px;height:5px;border-radius:50%}.intro{padding:62px 0 48px;display:flex;align-items:flex-end;justify-content:space-between}.eyebrow{font:10px var(--mono);letter-spacing:1.8px;color:var(--muted)}h1{font-size:112px;font-weight:800;line-height:.93;letter-spacing:-8px;margin:17px 0 11px;color:#e1e9d9}h1 span{color:var(--green)}.subtitle{font:12px var(--mono);letter-spacing:9px;margin-left:5px;color:var(--green)}.intro-copy{width:270px;padding-bottom:2px}.intro-copy p{font-size:16px;line-height:1.6;margin:0 0 20px;color:#a3ad9b}.text-link{font:11px var(--mono);text-decoration:none;display:inline-flex;gap:35px;border-bottom:1px solid #556249;padding-bottom:7px}.text-link span{color:var(--green)}
+.monitor-top{height:46px;border:1px solid #394334;border-bottom:0;background:#1d251d;display:flex;align-items:center;justify-content:space-between;padding:0 21px;border-radius:8px 8px 0 0;font:10px var(--mono);letter-spacing:2px}.monitor-name{display:flex;align-items:center;gap:10px;color:#b7c0a9}.monitor-name span{color:#6c7c62;margin-left:9px}.monitor-actions{display:flex;gap:18px;align-items:center;color:#829674}#status{font-size:9px;letter-spacing:1px}.icon-button{border:0;background:transparent;color:#a2b493;font:20px var(--mono);padding:5px;position:relative}.sound-slash{position:absolute;left:8px;top:4px;font-size:20px;color:#c0cbb5}.icon-button[aria-pressed=true] .sound-slash{display:none}.monitor{padding:20px 22px 0;background:linear-gradient(140deg,#232c22,#1a211b);border:1px solid #394334;border-top:0;border-radius:0 0 9px 9px;box-shadow:0 20px 50px #0003}.screen{position:relative;background:#07110b;border:2px solid #0b0f0a;border-radius:10px;overflow:hidden;isolation:isolate;box-shadow:0 0 0 1px #394233,0 3px 12px #0009 inset;aspect-ratio:5/3}canvas{display:block;width:100%;height:100%;position:relative;outline-offset:-4px}.screen-glass{pointer-events:none;position:absolute;z-index:2;inset:0;background:repeating-linear-gradient(0deg,#0000 0px,#0000 2px,#0002 3px,#0002 4px);box-shadow:0 0 65px 8px #0008 inset;border-radius:8px;opacity:.5}.screen-glass:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,#a1ff9010,#0000 70%)}
+.start-panel,.pause-panel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--green);text-align:center;background:radial-gradient(ellipse at center,#0c1c11e8,#06100aee);padding:16px;z-index:3;font-family:var(--mono)}[hidden]{display:none!important}.screen-eyebrow{font:10px var(--mono);letter-spacing:2px;color:#739b65}.cursor{animation:blink 1.1s step-end infinite}@keyframes blink{50%{opacity:0}}.alien{font:bold 33px var(--mono);letter-spacing:1px;margin:27px 0 21px;color:#a9e990;text-shadow:0 0 18px #8bdf6470}.start-panel h2{font:22px var(--mono);letter-spacing:3px;margin:0 0 15px}.start-panel p{font:12px/1.8 var(--mono);color:#7eaa70;margin:0 0 28px}.level-label{font:9px var(--mono);letter-spacing:2px;margin:0 0 10px;width:362px;text-align:left}.level-label span{float:right;color:#66875c}.start-controls{display:flex;gap:9px;width:362px}.start-controls select{min-width:0;width:47%;border:1px solid #446039;border-radius:0;padding:13px 9px;background:#0b190e;color:#a4c794;font:11px var(--mono)}.start-button{border:1px solid var(--green);background:var(--green);color:#101d0b;font:bold 11px var(--mono);letter-spacing:1px;padding:15px 22px;transition:background .15s}.start-controls .start-button{flex:1;padding:13px 12px}.start-button:hover{background:#c6efb6}.start-note{font:8px var(--mono);letter-spacing:1.5px;color:#66865b;margin-top:27px}.pause-panel{background:#07110bee;gap:24px}.pause-panel h2{font:40px var(--mono);letter-spacing:5px;margin:0}.monitor-bottom{height:33px;display:flex;justify-content:space-between;align-items:center;color:#75826b;font:8px var(--mono);letter-spacing:1px}.power-led{width:4px;height:4px;border-radius:50%;background:#a1d58b;box-shadow:0 0 8px #b8ed9d70}
+.game-toolbar{display:flex;align-items:center;justify-content:space-between;padding:20px 2px 27px;color:#8e9985;font:10px var(--mono);gap:12px}.key-guide{display:flex;align-items:center;gap:24px}.key-guide>span{display:flex;align-items:center;gap:6px}kbd{font:10px var(--mono);color:#bac6b0;border:1px solid #424d3b;border-bottom:2px solid #424d3b;border-radius:3px;min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;background:#1a2118}.space-key{padding:0 9px;font-size:8px}.toolbar-actions{white-space:nowrap}.toolbar-actions button{background:none;border:none;color:#a7b79a;padding:5px;font:10px var(--mono)}.toolbar-actions>span{color:#3c4835;margin:0 7px}.toolbar-actions button:hover{color:var(--green)}.readout{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 0;display:grid;grid-template-columns:1.1fr 1.1fr .8fr 1fr;gap:25px}.readout>div:not(:first-child){border-left:1px solid var(--line);padding-left:28px}.readout-label{font:8px var(--mono);letter-spacing:1.2px;color:var(--muted);display:block;margin-bottom:10px}.readout-value{font:28px var(--mono);color:var(--green)}.readout-value>span{font-size:14px;color:#718266}.readout-note{display:flex;align-items:center;gap:18px}.tiny-person{font:14px/1.05 var(--mono);white-space:pre;color:var(--green)}.readout-note p{font:10px/1.7 var(--mono);color:var(--muted);margin:0}.message{min-height:15px;margin:8px 0 0;color:#a3b194;font:10px/1.5 var(--mono)}.touch-controls{display:none}
+.field-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:38px;padding:49px 0 61px;border-bottom:1px solid var(--line)}.note-number{font:9px var(--mono);letter-spacing:1.5px;color:#829575}.field-notes pre{height:59px;margin:24px 0 16px;font:14px/1.15 var(--mono);color:var(--green);display:flex;align-items:center;white-space:pre}.field-notes h3{font-size:14px;font-weight:400;margin:0 0 11px;color:#c5d1ba}.field-notes p{font-size:12px;line-height:1.8;color:var(--muted);margin:0}.history{display:grid;grid-template-columns:1fr 1fr;gap:70px;padding:67px 0 76px;scroll-margin-top:35px}.history h2{font-size:33px;font-weight:400;line-height:1.25;letter-spacing:-1px;margin-top:23px;color:#d3dfc8}.history-copy>p{font-size:13px;line-height:1.9;color:#9aa690;margin:0 0 18px}.history-copy .history-last{color:#bdcdb2;margin-top:25px}details{border-top:1px solid var(--line);margin-top:28px}summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;font:10px/1.5 var(--mono);padding:17px 0;color:#a5b59a}summary::-webkit-details-marker{display:none}summary span{color:var(--green);font-size:15px}details[open] summary span{transform:rotate(45deg)}details p{font-size:11px;line-height:1.9;color:var(--muted)}details a{color:#b5d6a3;text-underline-offset:4px}footer{border-top:1px solid var(--line);padding:24px 0 30px;display:flex;align-items:center;justify-content:space-between;font:8px var(--mono);letter-spacing:1.4px;color:#829575}.footer-star{font-size:19px;color:#a7c397;margin-left:20px;vertical-align:middle}.noscript{position:fixed;bottom:0;left:0;right:0;background:#a6dc90;color:#101310;padding:20px;text-align:center;z-index:10}.monitor:fullscreen{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:18px;background:#070d08}.monitor:fullscreen .screen{width:min(100%,calc((100vh - 60px)*5/3));flex-shrink:0;min-height:0}.monitor:fullscreen .monitor-bottom{width:100%;height:28px}
+@media(max-width:900px){.page{padding:0 30px}.intro{padding-top:44px}.intro-copy{width:235px}.intro-copy p{font-size:14px}h1{font-size:95px}.subtitle{font-size:10px;letter-spacing:8px}.readout{gap:15px}.readout>div:not(:first-child){padding-left:18px}.readout-label{font-size:7px;letter-spacing:.6px}.readout-note{gap:12px}.readout-note p{font-size:9px}.field-notes{gap:25px}.history{gap:40px}.history h2{font-size:28px}.monitor{padding:15px 16px 0}.key-guide{gap:13px}.start-panel p{margin-bottom:18px}.alien{margin:20px 0 15px}.start-note{margin-top:20px}}
+@media(max-width:640px){.page{padding:0 18px}.masthead{height:67px;font-size:8px;letter-spacing:.8px}.mark{font-size:26px}.wordmark{gap:8px}.archive-label{font-size:7px;gap:6px}.intro{padding:34px 0 28px;align-items:center}.eyebrow{font-size:8px;letter-spacing:1px}h1{font-size:76px;letter-spacing:-5px;margin:14px 0 9px}.subtitle{font-size:8px;letter-spacing:6px;margin-left:3px}.intro-copy{width:138px}.intro-copy p{font-size:10px;line-height:1.7;margin-bottom:14px}.text-link{font-size:8px;gap:10px;padding-bottom:5px}.monitor-top{height:38px;padding:0 12px;font-size:8px;letter-spacing:1px}.monitor-name{gap:7px}.monitor-name span{margin-left:3px}.monitor-actions{gap:9px}#status{font-size:7px;letter-spacing:.4px}.icon-button{font-size:18px;padding:4px}.monitor{padding:8px 8px 0}.monitor-bottom{height:25px;font-size:6px}.screen{min-height:270px}.screen-eyebrow{font-size:7px;letter-spacing:1.2px}.alien{font-size:21px;margin:15px 0 12px}.start-panel h2{font-size:15px;letter-spacing:1.6px;margin-bottom:10px}.start-panel p{font-size:9px;line-height:1.6;margin:0 0 17px}.level-label{width:265px;font-size:7px;margin-bottom:7px}.start-controls{width:265px;gap:7px}.start-controls select{font-size:9px;padding:10px 6px}.start-controls .start-button{font-size:9px;padding:11px 7px}.start-note{font-size:6px;letter-spacing:1px;margin-top:17px}.game-toolbar{padding:14px 0 15px;font-size:8px}.key-guide{gap:10px}.key-guide>span{gap:4px;font-size:8px}.key-guide>span:last-child{display:none}kbd{font-size:8px;min-width:18px;height:19px}.space-key{font-size:6px;padding:0 5px}.toolbar-actions button{font-size:8px;padding:3px}.toolbar-actions>span{margin:0 1px}.touch-controls{display:grid;grid-template-columns:1fr .7fr 1fr 1.7fr;gap:8px;margin:0 0 20px}.touch-controls button{background:#1b251a;border:1px solid #3a4a32;border-bottom:3px solid #3a4a32;border-radius:4px;color:#a9cd96;font:19px var(--mono);padding:14px;user-select:none;-webkit-user-select:none;touch-action:none}.touch-controls .touch-fire{font-size:12px;background:#2b3d25;letter-spacing:1px}.touch-controls button:active{background:#48633b}.readout{grid-template-columns:1.25fr 1.2fr .6fr;gap:12px;padding:20px 0}.readout>div:not(:first-child){padding-left:12px}.readout-label{font-size:6px;letter-spacing:.4px;line-height:1.5;min-height:18px;margin-bottom:5px}.readout-value{font-size:24px}.readout-value>span{font-size:11px}.readout .readout-note{display:none}.field-notes{grid-template-columns:1fr;gap:25px;padding:27px 0 36px}.field-notes article{position:relative;padding-left:78px}.field-notes pre{position:absolute;left:0;top:13px;width:65px;font-size:11px;margin:0;height:59px}.note-number{font-size:7px;letter-spacing:1px}.field-notes h3{font-size:12px;margin-top:10px;margin-bottom:6px}.field-notes p{font-size:11px;line-height:1.7}.history{grid-template-columns:1fr;gap:15px;padding:35px 0 34px}.history h2{font-size:29px;margin:17px 0 10px}.history-copy>p{font-size:12px}footer{font-size:6px;letter-spacing:.7px;padding:20px 0}.footer-star{font-size:14px;margin-left:10px}.pause-panel h2{font-size:26px}}
+@media(pointer:coarse) and (min-width:641px){.touch-controls{display:flex;gap:10px;margin-bottom:20px}.touch-controls button{flex:1;background:#1b251a;border:1px solid #3a4a32;border-radius:4px;color:var(--green);padding:16px;touch-action:none}.touch-fire{flex:2!important}}
+canvas:focus,canvas:focus-visible{outline:none}
+#terminal,.rom-art-canvas{image-rendering:pixelated}.rom-art-canvas{max-width:100%;flex-shrink:0}
+@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}.cursor{animation:none}.screen-glass{opacity:.25}*{transition:none!important}}
+
+/* A physical CRT housing. Decoration stays outside the original 80×24 raster. */
+.monitor-top {
+  height: 40px;
+  padding: 0 4px 12px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+.monitor-name { color: #9aa68f; }
+.monitor-name span { color: #65745d; }
+.monitor {
+  position: relative;
+  padding: 31px 34px 0;
+  border: 1px solid #b1b2a0;
+  border-radius: 24px 24px 18px 18px;
+  background:
+    linear-gradient(180deg, #d0cebc 0, #bcbba8 5px, transparent 9px),
+    linear-gradient(105deg, #c7c6b3, #b8baa6 55%, #a5a995);
+  box-shadow:
+    inset 2px 0 2px #ebead855,
+    inset -4px -4px 6px #565c4f66,
+    0 3px 0 #626a58,
+    0 16px 24px #0005,
+    0 36px 70px #0004;
+}
+.monitor::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  width: 116px;
+  height: 4px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background: repeating-linear-gradient(90deg, #747d68 0 2px, transparent 2px 6px);
+  opacity: .55;
+}
+.crt-bezel {
+  position: relative;
+  padding: 17px;
+  border: 1px solid #828a75;
+  border-radius: 43px 43px 35px 35px / 36px 36px 31px 31px;
+  background: linear-gradient(150deg, #4b5245 0, #3d4538 30%, #606752 75%, #8d947b);
+  box-shadow:
+    0 1px 0 #e5e5cd99,
+    0 -2px 2px #6b735d,
+    inset 3px 5px 9px #111b12bb,
+    inset -2px -2px 4px #a0a58b66;
+}
+.screen {
+  --raster-x: 20px;
+  --raster-y: 18px;
+  position: relative;
+  border: 0;
+  border-radius: 27px 27px 22px 22px / 25px 25px 20px 20px;
+  background: #040c07;
+  box-shadow: 0 0 0 2px #10180f, 0 2px 5px 3px #000a;
+}
+#terminal {
+  position: absolute;
+  top: var(--raster-y);
+  left: var(--raster-x);
+  width: calc(100% - var(--raster-x) * 2);
+  height: calc(100% - var(--raster-y) * 2);
+  outline: none;
+}
+#terminal:focus, #terminal:focus-visible { outline: none; }
+.screen-glass {
+  border-radius: inherit;
+  opacity: 1;
+  background:
+    radial-gradient(ellipse at 28% 0, #b9d8a509, transparent 58%),
+    repeating-linear-gradient(0deg, #0000 0 2px, #0002 2px 3px, #0000 3px 4px);
+  box-shadow:
+    inset 0 0 26px 6px #0007,
+    inset 0 1px 1px #afbea526,
+    inset 0 -2px 3px #111b1066;
+}
+.screen-glass::after {
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse at 50% 40%, transparent 55%, #0003 100%),
+    linear-gradient(165deg, #e5f4d907, transparent 22%);
+}
+.start-panel, .pause-panel { border-radius: inherit; }
+.monitor-bottom {
+  height: 70px;
+  padding: 0 5px;
+  color: #535e49;
+  gap: 20px;
+}
+.monitor-plate {
+  display: flex;
+  align-items: baseline;
+  gap: 13px;
+  font: bold 17px var(--mono);
+  letter-spacing: 2px;
+  color: #4b5744;
+  text-shadow: 0 1px 0 #e2e5cfaa;
+}
+.monitor-plate > span {
+  font: 8px var(--mono);
+  letter-spacing: 1px;
+  color: #737e66;
+}
+.monitor-vents {
+  width: 112px;
+  height: 15px;
+  margin-left: auto;
+  border-top: 1px solid #a0a58e;
+  border-bottom: 1px solid #d6dac3;
+  background: repeating-linear-gradient(0deg, #6b775d 0 1px, transparent 1px 4px);
+  opacity: .65;
+}
+.monitor-power {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-left: 9px;
+  font: 8px var(--mono);
+  letter-spacing: 1.5px;
+}
+.monitor-power .power-led {
+  width: 7px;
+  height: 7px;
+  border: 1px solid #384e25;
+  background: #8db35d;
+  box-shadow: 0 0 5px #acdf7055, inset 0 1px 1px #e3f8b788;
+}
+.monitor-stand {
+  position: relative;
+  width: 36%;
+  height: 26px;
+  margin: 0 auto 9px;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(180deg, #4e5845 0, #929b80 55%, #b5bca0 58%, #899476 100%);
+  box-shadow: inset 0 -2px 2px #49573d, 0 11px 13px #0005;
+}
+.monitor-stand::after {
+  content: "";
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  bottom: -5px;
+  height: 10px;
+  border: 1px solid #737f62;
+  border-radius: 50% 50% 4px 4px / 6px 6px 3px 3px;
+  background: linear-gradient(#a4af90, #747f60);
+  box-shadow: 0 5px 6px #0004;
+}
+.monitor:fullscreen {
+  padding: 20px;
+  border: 0;
+  border-radius: 0;
+  background: #070d08;
+  box-shadow: none;
+}
+.monitor:fullscreen::before { display: none; }
+.monitor:fullscreen .crt-bezel {
+  width: min(100%, calc((100dvh - 110px) * 5 / 3));
+  flex-shrink: 0;
+}
+.monitor:fullscreen .screen { width: 100%; min-height: 0; }
+.monitor:fullscreen .monitor-bottom {
+  width: min(100%, calc((100dvh - 110px) * 5 / 3));
+  height: 50px;
+}
+.monitor:fullscreen .monitor-plate { color: #a6b198; text-shadow: none; }
+.monitor:fullscreen .monitor-power { color: #87907e; }
+@media (max-width: 900px) {
+  .monitor { padding: 24px 25px 0; border-radius: 20px 20px 15px 15px; }
+  .monitor::before { top: 9px; }
+  .crt-bezel { padding: 13px; border-radius: 34px 34px 28px 28px; }
+  .screen { --raster-x: 16px; --raster-y: 14px; border-radius: 23px; }
+  .monitor-bottom { height: 61px; }
+}
+@media (max-width: 640px) {
+  .monitor-top { height: 35px; padding: 0 1px 10px; }
+  .monitor { padding: 15px 12px 0; border-radius: 15px 15px 12px 12px; }
+  .monitor::before { top: 6px; width: 60px; height: 3px; }
+  .crt-bezel { padding: 8px; border-radius: 24px 24px 21px 21px; }
+  .screen { --raster-x: 9px; --raster-y: 10px; border-radius: 17px; }
+  .monitor-bottom { height: 49px; padding: 0 4px; gap: 12px; }
+  .monitor-plate { font-size: 13px; gap: 8px; letter-spacing: 1px; }
+  .monitor-plate > span { font-size: 6px; letter-spacing: .5px; }
+  .monitor-vents { width: 42px; height: 11px; }
+  .monitor-power { font-size: 6px; gap: 6px; margin-left: 0; }
+  .monitor-power .power-led { width: 6px; height: 6px; }
+  .monitor-stand { width: 43%; height: 19px; margin-bottom: 5px; }
+  .monitor-stand::after { height: 7px; bottom: -4px; }
+  .monitor:fullscreen { padding: 8px; }
+  .monitor:fullscreen .crt-bezel { width: min(100%, calc((100dvh - 78px) * 5 / 3)); }
+  .monitor:fullscreen .monitor-bottom { width: min(100%, calc((100dvh - 78px) * 5 / 3)); height: 40px; }
+}
+</style>
+  <script type="application/json" id="mars-archive">{"sav":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABsCwACAAAAAE4cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5/4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAlRsA4Yj+h8CVWQDhiP6HQBXAZSAA4Yj+h0AVwGUgAOGI/oeHAMUVZAT3CdL/wBVaAt8LugwCA8AVYgLfC8oWAgLAFXIC3wt2EwIDwBVqAumIhwAAAAAAAAAgPT0hPT0ggCAkPSE9JCCAID09Tz09IIAgPT0jPT0ggCAgICAgICAgTyAgICBPICAgIE8gICAgTyAgICBPICAgIE8gICAgTyAgICBPICAgIE8gICAgTyAgICBPICAgIE8gICAgTyAgICBPICAgICAgICAgICAgIC9WXCAgL1ZcICAvVlwgIC9WXCAgL1ZcICAvVlwgIC9WXCAgL1ZcICAvVlwgIC9WXCAgL1ZcICAvVlwgIC9WXCAgL1ZcICAgICAgICAgICAgX01fICBfTV8gIF9NXyAgX01fICBfTV8gIF9NXyAgX01fICBfTV8gIF9NXyAgX01fICBfTV8gIF9NXyAgX01fICBfTV8ggBcbSBtKDmtvbGl+ZXN0d28gbWFyc2lhbiA9D4AOd2F7IGtsYXNzIA9bMC01XYAKCgoKCgoKCgoKCgoKDQ5uZSBzdWV0aXN4IHBvZCBrbGllbnRvbSEPDQoKCgoKCgoKCgoKCgAAAQAtABIAMgAHAEEBAQDAACMADwAtAAYA+gABAIABGQAMACgABQCyAAEAAAIUAAkAIwAEAI4AAgAABg8ABgAeAAMAawACAAAMCgADABkAAgBHAAIAnwpsBN8nbgRsBAkGHwpsBN8LZgQUA98KZgT3Cej9hwCfCmwE3yduBGwE+QYfCmwE3yVJAGYEAwOfCmYE7gEfC7gMhwAUACQAFQAAAAAABgAAIMYWBgAyDh4AcA4BAPoPogB6EwcAXgYAAroMAQAAAMAVcgQBFAQDAhQRCoJ++gHfFQ4AiBPAFQ4AwRVQFNGVAQADfsAVAAP8iMAVSgbIFQAB8BXCBQIA/YgSh8AVSgbIFQAIMAoCAPAVXgYEAPAVAAIGADAKCAD9iN8LYgoMAuYVygXmFQEA5hV2BSYK5Yjfi8oFAQLoiN+lAwDKBfADHwpgCsUVXgbEFcoFwxUSAEIRzQsSA8qLHwOUpAICxX4bAZ8KYArFZSAA3yUgAGAK6wbAFaQF6YjoiMAVygXpiOYVCgbmFQEA5hWGBSYK5YjfpVkACgbEAsQVygVfEV4KFZX+AocADndheyBwYXJvbHggPyAPgA53eSBpZ3JhZXRlIHdwZXJ3eWUgPyAPW1kvTl0ggA5zcGlzb2sgaWdyYWB9aWggcGVyZXBvbG5lbg8AALgaelHAdjwZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADnd5IHByaWdsYXthZXRlc3ggbmEgbWFyYWZvbnNraWogemFi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ZSCADQphYnNvbGB0bnlqIHJla29yZCB1c3Rhbm93aWwgD4AOc28gc35ldG9tIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","dat":"U0FHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBAAAAAAAAAAAAAAAAAAAAAAC5D0wLAAAAAAAAAAAAADUAAAAAAAAAAAAAAAAAAAAAAAAAgwEAAAAAAAAAAAAANAAAAAAAAAAAAAAAAAAAAAAACAMAAAAAAAAAAAAAAAAxAAAAAAAAAAAAAAAAAAAAAACNCgAAAAAAAAAAAAAAAE5PUgAAAAAAAAAAAAAAAAAAAH4IAAAAAAAAAAAAAAAAR04AAAAAAAAAAAAAAAAAAAAANwgAAAAAAAAAAAAAAAAOd2l0cQAAAAAAAAAAAAAAAABiEQAAAAAAAAAAAAAAAFkAAAAAAAAAAAAAAAAAAAAAADEQAAAAAAAAAAAAAAAAR1sAAAAAAAAAAAAAAAAAAAAANgsAAAAAAAAAAAAAAAAwMDAwMDAwMDAAAAAAAAAAAACACQAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAALkLAAAAAAAAAAAAAAAAVEFOUQAAAAAAAAAAAAAAAAAA+AMAAAAARQEAAAAAAABUVAAAAAAAAAAAAAAAAAAAAAC9CaMFAAAAAAAATAAAAA50YW5xAAAAAAAAAAAAAAAAAA0HAAAAAAAAAAAAAAAARwAAAAAAAAAAAAAAAAAAAAAAuw5DBgAAAAAAAAAAAAAQAwMDMAAAAAAAAAAAAAAAAACQDAAAAAAAAAAAAAAAAFpVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVkYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABTQVNBAAAAAAAAAAAAAAAAAAACDgAA/QIAAAAAAAAAAFUAAAAAAAAAAAAAAAAAAAAAANcKAAAAAAAAAAAAAAAAUk9ST0RPVltSTFJBTEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="}</script><script type="module">// PDP-11 integer interpreter. All machine addresses and registers are 16 bit.
+// Deliberately independent of DOM, clock, and the MARS program.
+class PDP11 {
+  constructor(image, emt = () => {}) {
+    this.memory = new Uint8Array(65536);
+    this.memory.set(image);
+    this.r = new Uint16Array(8);
+    this.r[6] = this.word(0o42);
+    this.r[7] = this.word(0o40);
+    this.n = this.z = this.v = this.c = false;
+    this.emt = emt;
+    this.halted = false;
+    this.instructions = 0;
+  }
+  word(a) { a &= 65535; return this.memory[a] | (this.memory[(a + 1) & 65535] << 8); }
+  putWord(a, value) { a &= 65535; this.memory[a] = value; this.memory[(a + 1) & 65535] = value >> 8; }
+  fetch() { const a = this.r[7]; this.r[7] += 2; return this.word(a); }
+  push(value) { this.r[6] -= 2; this.putWord(this.r[6], value); }
+  pop() { const value = this.word(this.r[6]); this.r[6] += 2; return value; }
+  operand(spec, byte = false) {
+    const reg = spec & 7, mode = spec >> 3;
+    if (!mode) return { reg };
+    const step = byte && reg < 6 ? 1 : 2;
+    let address;
+    switch (mode) {
+      case 1: address = this.r[reg]; break;
+      case 2: address = this.r[reg]; this.r[reg] += step; break;
+      case 3: address = this.word(this.r[reg]); this.r[reg] += 2; break;
+      case 4: this.r[reg] -= step; address = this.r[reg]; break;
+      case 5: this.r[reg] -= 2; address = this.word(this.r[reg]); break;
+      case 6: { const offset = this.fetch(); address = this.r[reg] + offset; break; }
+      case 7: { const offset = this.fetch(); address = this.word(this.r[reg] + offset); break; }
+    }
+    return { address: address & 65535 };
+  }
+  read(o, byte = false) {
+    return o.reg !== undefined ? this.r[o.reg] & (byte ? 255 : 65535)
+      : byte ? this.memory[o.address] : this.word(o.address);
+  }
+  write(o, value, byte = false, extend = false) {
+    if (o.reg !== undefined) {
+      if (!byte) this.r[o.reg] = value;
+      else if (extend) this.r[o.reg] = (value & 128) ? value | 0xff00 : value & 255;
+      else this.r[o.reg] = (this.r[o.reg] & 0xff00) | (value & 255);
+    } else if (byte) this.memory[o.address] = value;
+    else this.putWord(o.address, value);
+  }
+  nz(value, byte = false) {
+    const mask = byte ? 255 : 65535;
+    value &= mask;
+    this.n = !!(value & (byte ? 128 : 32768)); this.z = value === 0;
+    return value;
+  }
+  step() {
+    if (this.halted) return;
+    const pc = this.r[7], w = this.fetch();
+    this.instructions++;
+    const top = w >>> 12;
+    if ((top >= 1 && top <= 6) || (top >= 9 && top <= 14)) {
+      const byte = top >= 9 && top <= 13;
+      const sign = byte ? 128 : 32768, mask = byte ? 255 : 65535;
+      // Source must be read before evaluating a destination that changes a register.
+      const s = this.read(this.operand((w >> 6) & 63, byte), byte);
+      const dst = this.operand(w & 63, byte), d = this.read(dst, byte);
+      const op = top & 7;
+      let result;
+      if (op === 1) { result = this.nz(s, byte); this.v = false; this.write(dst, result, byte, byte); return; }
+      if (op === 2 || top === 14) {
+        const a = top === 14 ? d : s, b = top === 14 ? s : d;
+        result = this.nz(a - b, byte);
+        this.v = !!((a ^ b) & (a ^ result) & sign); this.c = a < b;
+        if (top === 14) this.write(dst, result);
+        return;
+      }
+      if (op === 3) { this.nz(s & d, byte); this.v = false; return; }
+      if (op === 4) result = d & ~s;
+      if (op === 5) result = d | s;
+      if (top === 6) { result = (s + d) & mask; this.v = !!(~(s ^ d) & (d ^ result) & sign); this.c = s + d > mask; }
+      else this.v = false;
+      this.write(dst, this.nz(result, byte), byte); return;
+    }
+    const branch = w & 0o177400;
+    let take;
+    switch (branch) {
+      case 0o000400: take = true; break;
+      case 0o001000: take = !this.z; break;
+      case 0o001400: take = this.z; break;
+      case 0o002000: take = this.n === this.v; break;
+      case 0o002400: take = this.n !== this.v; break;
+      case 0o003000: take = !this.z && this.n === this.v; break;
+      case 0o003400: take = this.z || this.n !== this.v; break;
+      case 0o100000: take = !this.n; break;
+      case 0o100400: take = this.n; break;
+      case 0o101000: take = !this.c && !this.z; break;
+      case 0o101400: take = this.c || this.z; break;
+      case 0o102000: take = !this.v; break;
+      case 0o102400: take = this.v; break;
+      case 0o103000: take = !this.c; break;
+      case 0o103400: take = this.c; break;
+    }
+    if (take !== undefined) { if (take) this.r[7] += ((w << 24) >> 24) * 2; return; }
+    if ((w & 0o177400) === 0o104000) { this.emt(w & 255, this); return; }
+    if ((w & 0o177770) === 0o000200) { const reg = w & 7; this.r[7] = this.r[reg]; this.r[reg] = this.pop(); return; }
+    if ((w & 0o177740) === 0o000240) {
+      const set = !!(w & 16);
+      if (w & 8) this.n = set; if (w & 4) this.z = set; if (w & 2) this.v = set; if (w & 1) this.c = set;
+      return;
+    }
+    if ((w & 0o177700) === 0o000100) {
+      const o = this.operand(w & 63); this.r[7] = o.address ?? this.r[o.reg]; return;
+    }
+    if ((w & 0o177000) === 0o004000) {
+      const o = this.operand(w & 63), address = o.address ?? this.r[o.reg], reg = (w >> 6) & 7;
+      this.push(this.r[reg]); this.r[reg] = this.r[7]; this.r[7] = address; return;
+    }
+    if ((w & 0o177000) === 0o077000) { const reg = (w >> 6) & 7; if (--this.r[reg]) this.r[7] -= (w & 63) * 2; return; }
+    if ((w & 0o177000) === 0o074000) {
+      const o = this.operand(w & 63); this.write(o, this.nz(this.read(o) ^ this.r[(w >> 6) & 7])); this.v = false; return;
+    }
+    const single = w & 0o077700, byte = !!(w & 0o100000);
+    if (single === 0o000300 || (single >= 0o005000 && single <= 0o006300) || single === 0o006700) {
+      const o = this.operand(w & 63, byte), d = this.read(o, byte);
+      const sign = byte ? 128 : 32768, mask = byte ? 255 : 65535, oldC = this.c ? 1 : 0;
+      let result;
+      switch (single) {
+        case 0o000300: result = ((d & 255) << 8) | (d >>> 8); this.nz(result & 255, true); this.v = this.c = false; this.write(o, result); return;
+        case 0o005000: result = 0; this.v = this.c = false; break;
+        case 0o005100: result = ~d; this.v = false; this.c = true; break;
+        case 0o005200: result = d + 1; this.v = d === sign - 1; break;
+        case 0o005300: result = d - 1; this.v = d === sign; break;
+        case 0o005400: result = -d; this.v = d === sign; this.c = d !== 0; break;
+        case 0o005500: result = d + oldC; this.v = !!oldC && d === sign - 1; this.c = !!oldC && d === mask; break;
+        case 0o005600: result = d - oldC; this.v = !!oldC && d === sign; this.c = !!oldC && d === 0; break;
+        case 0o005700: this.nz(d, byte); this.v = this.c = false; return;
+        case 0o006000: result = (d >>> 1) | (oldC * sign); this.c = !!(d & 1); break;
+        case 0o006100: result = (d << 1) | oldC; this.c = !!(d & sign); break;
+        case 0o006200: result = (d >>> 1) | (d & sign); this.c = !!(d & 1); break;
+        case 0o006300: result = d << 1; this.c = !!(d & sign); break;
+        case 0o006700: result = this.n ? 65535 : 0; this.z = !this.n; this.v = false; this.write(o, result); return;
+      }
+      result = this.nz(result, byte);
+      if (single >= 0o006000) this.v = this.n !== this.c;
+      this.write(o, result, byte); return;
+    }
+    if (w === 0) { this.halted = true; return; }
+    throw new Error(`Unsupported PDP-11 instruction ${w.toString(8)} at ${pc.toString(8)}`);
+  }
+}
+
+// VT52 cursor control and KOI-7 N0/N1 character sets used by MARS.SAV.
+const CYRILLIC = 'юабцдефгхийклмнопярстужвьызшэщчъ';
+function koi7(byte, russian = true) {
+  if (russian && byte >= 0x60 && byte <= 0x7e) return CYRILLIC[byte - 0x60];
+  if (russian && byte >= 0x40 && byte <= 0x5e) return CYRILLIC[byte - 0x40].toUpperCase();
+  return String.fromCharCode(byte);
+}
+
+class Terminal {
+  constructor(columns = 80, rows = 24) {
+    this.columns = columns; this.rows = rows;
+    this.cells = Array(columns * rows).fill(' ');
+    this.x = this.y = 0; this.russian = false; this.escape = '';
+    this.revision = 0; this.bells = 0;
+  }
+  clear() { this.cells.fill(' '); this.x = this.y = 0; this.revision++; }
+  scroll() { this.cells.copyWithin(0, this.columns); this.cells.fill(' ', (this.rows - 1) * this.columns); this.y = this.rows - 1; }
+  write(byte) {
+    byte &= 127;
+    this.revision++;
+    if (this.escape === 'row') { this.targetRow = byte - 32; this.escape = 'column'; return; }
+    if (this.escape === 'column') { this.y = Math.max(0, Math.min(this.rows - 1, this.targetRow)); this.x = Math.max(0, Math.min(this.columns - 1, byte - 32)); this.escape = ''; return; }
+    if (this.escape === 'esc') {
+      this.escape = '';
+      switch (String.fromCharCode(byte)) {
+        case 'Y': this.escape = 'row'; break;
+        case 'H': this.x = this.y = 0; break;
+        case 'J': this.cells.fill(' ', this.y * this.columns + this.x); break;
+        case 'K': this.cells.fill(' ', this.y * this.columns + this.x, (this.y + 1) * this.columns); break;
+        case 'A': this.y = Math.max(0, this.y - 1); break;
+        case 'B': this.y = Math.min(this.rows - 1, this.y + 1); break;
+        case 'C': this.x = Math.min(this.columns - 1, this.x + 1); break;
+        case 'D': this.x = Math.max(0, this.x - 1); break;
+        case 'I': if (this.y) this.y--; else { this.cells.copyWithin(this.columns, 0, (this.rows - 1) * this.columns); this.cells.fill(' ', 0, this.columns); } break;
+        default: break;
+      }
+      return;
+    }
+    switch (byte) {
+      case 0: return;
+      case 7: this.bells++; return;
+      case 8: this.x = Math.max(0, this.x - 1); return;
+      case 9: this.x = Math.min(this.columns - 1, (Math.floor(this.x / 8) + 1) * 8); return;
+      case 10: this.y++; if (this.y >= this.rows) this.scroll(); return;
+      case 12: this.clear(); return;
+      case 13: this.x = 0; return;
+      case 14: this.russian = true; return;
+      case 15: this.russian = false; return;
+      case 23: return; // DVK cursor off.
+      case 27: this.escape = 'esc'; return;
+    }
+    if (byte < 32 || byte === 127) return;
+    // VT52 terminals don't wrap until another printable byte arrives.
+    if (this.x >= this.columns) { this.x = 0; if (++this.y >= this.rows) this.scroll(); }
+    this.cells[this.y * this.columns + this.x] = koi7(byte, this.russian);
+    this.x++;
+  }
+  text() { return Array.from({ length: this.rows }, (_, y) => this.cells.slice(y * this.columns, (y + 1) * this.columns).join('')).join('\n'); }
+}
+
+
+const GAME_LOOP = 0o6060;
+class MarsMachine {
+  constructor(image, data, { onSave = () => {}, onBell = () => {} } = {}) {
+    this.terminal = new Terminal(); this.disk = new Uint8Array(data);
+    this.onSave = onSave; this.onBell = onBell;
+    this.input = []; this.lines = []; this.waitingLine = null;
+    this.inGame = false; this.frames = 0; this.exited = false; this.roundComplete = false;
+    this.cpu = new PDP11(image, (code, cpu) => this.emt(code, cpu));
+  }
+  send(...bytes) { this.input.push(...bytes); }
+  line(text) { this.lines.push(text); }
+  print(address) {
+    const c = this.cpu;
+    for (let i = 0; i < 65536; i++) {
+      const b = c.memory[(address + i) & 65535];
+      if (b === 0x80) return;
+      if (b === 0) { this.terminal.write(13); this.terminal.write(10); return; }
+      this.terminal.write(b);
+    }
+    throw new Error('Unterminated RT-11 .PRINT string');
+  }
+  completeLine(text) {
+    const { buffer } = this.waitingLine;
+    const bytes = [...text.toUpperCase()].slice(0, 17).map(ch => ch.charCodeAt(0) & 127);
+    this.cpu.memory.set([...bytes, 0], buffer);
+    for (const b of bytes) this.terminal.write(b);
+    this.terminal.write(13); this.terminal.write(10);
+    this.cpu.r[6] += 8; this.cpu.c = false; this.waitingLine = null;
+  }
+  emt(code, c) {
+    switch (code) {
+      case 0o340: {
+        if (this.input.length) { c.r[0] = this.input.shift(); c.c = false; }
+        else { c.c = true; this.idleInput = !this.inGame; }
+        break;
+      }
+      case 0o341: this.terminal.write(c.r[0]); c.c = false; break;
+      case 0o345: {
+        this.print(c.word(c.r[6] + 2));
+        this.waitingLine = { buffer: c.word(c.r[6] + 6) };
+        if (this.lines.length) this.completeLine(this.lines.shift());
+        break;
+      }
+      case 0o350: this.exited = true; this.inGame = false; c.halted = true; break;
+      case 0o351: this.print(c.r[0]); c.c = false; break;
+      case 0o374: c.c = false; break; // .CLOSE/.PURGE: the browser disk has one file.
+      case 0o375: {
+        const area = c.r[0], operation = c.word(area) >>> 8;
+        // .LOOKUP, .ENTER, .READW, .WRITW, .SCCA.
+        if (operation === 8) {
+          const target = c.word(area + 4), count = c.word(area + 6) * 2;
+          c.memory.set(this.disk.slice(0, count), target);
+        } else if (operation === 9) {
+          const source = c.word(area + 4), count = c.word(area + 6) * 2;
+          this.disk = c.memory.slice(source, source + count); this.onSave(this.disk);
+        } else if (![1, 2, 29].includes(operation)) {
+          throw new Error(`Unsupported RT-11 request ${operation}`);
+        }
+        c.c = false; break;
+      }
+      default: throw new Error(`Unsupported EMT ${code.toString(8)}`);
+    }
+  }
+  // One iteration of the ORIGINAL game, including its own delays and randomizer.
+  // Browser pacing replaces the speed of a particular physical DVK processor.
+  tick(limit = 250000) {
+    if (this.roundComplete) return;
+    this.idleInput = false;
+    if (this.waitingLine) {
+      if (!this.lines.length) return;
+      this.completeLine(this.lines.shift());
+    }
+    const bells = this.terminal.bells;
+    for (let i = 0; i < limit && !this.cpu.halted; i++) {
+      const pc = this.cpu.r[7];
+      if (pc === GAME_LOOP) {
+        this.inGame = true;
+        if (i > 0) { this.frames++; break; }
+      }
+      if (pc === 0o5554 && this.inGame) { this.inGame = false; this.roundComplete = true; break; }
+      this.cpu.step();
+      if (this.waitingLine || this.idleInput) break;
+    }
+    if (this.terminal.bells !== bells) this.onBell();
+  }
+  stats() {
+    const c = this.cpu;
+    return { people: c.word(0o11610), remaining: c.word(0o7156) + c.word(0o7160),
+      destroyed: c.word(0o14612), bombsIntercepted: c.word(0o14620), shots: c.word(0o14626),
+      gravesDestroyed: c.word(0o14656), peopleLost: c.word(0o14642),
+      score: [0o14614, 0o14622, 0o14630, 0o14636, 0o14644, 0o14652, 0o14660].reduce((s, a) => s + ((c.word(a) << 16) >> 16), 0),
+      platformColumn: c.word(0o2146), difficulty: c.word(0o14664) };
+  }
+}
+
+// Generated by tools/extract_font.py from assets/fonts/15IE_CHR.ZIP.
+// Source and verification: docs/font-15ie.md. Do not edit glyph pixels.
+// SHA-1: 6af9fb75f5375943d5c0ce9ed408e0fb4621b17e
+const IE15_ROM = Uint8Array.from(atob(
+  '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'
+), c => c.charCodeAt(0));
+
+
+// IE15: seven visible bits, eight scan lines, three blank pixels/scan lines.
+// Geometry and bit order verified against MAME's ie15_device::draw_scanline.
+const IE15_CELL_WIDTH = 10;
+const IE15_CELL_HEIGHT = 11;
+const IE15_GLYPH_WIDTH = 7;
+const IE15_GLYPH_HEIGHT = 8;
+const ROM_CYRILLIC = 'юабцдефгхийклмнопярстужвьызшэщчъ';
+
+function ie15Code(character) {
+  const ascii = character.codePointAt(0);
+  if (ascii >= 0x20 && ascii <= 0x7e) return ascii;
+  const lower = ROM_CYRILLIC.indexOf(character);
+  if (lower >= 0) return 0xc0 + lower;
+  const upper = ROM_CYRILLIC.toUpperCase().indexOf(character);
+  // Slot FF is a solid cursor. There is no uppercase Ъ in this ROM bank.
+  if (upper >= 0) return upper === 31 ? 0xdf : 0xe0 + upper;
+  return 0x3f; // No modern-font fallback for unsupported characters.
+}
+
+function ie15Glyph(character) {
+  const start = ie15Code(character) * 8;
+  return IE15_ROM.subarray(start, start + 8);
+}
+
+function drawIE15Glyph(context, character, x, y) {
+  const rows = ie15Glyph(character);
+  for (let row = 0; row < IE15_GLYPH_HEIGHT; row++) {
+    for (let column = 0; column < IE15_GLYPH_WIDTH; column++) {
+      if (rows[row] & (0x80 >> column)) context.fillRect(x + column, y + row, 1, 1);
+    }
+  }
+}
+
+function drawIE15Screen(context, terminal) {
+  context.imageSmoothingEnabled = false;
+  context.fillStyle = '#061009';
+  context.fillRect(0, 0, terminal.columns * IE15_CELL_WIDTH, terminal.rows * IE15_CELL_HEIGHT);
+  context.fillStyle = '#9ae282';
+  for (let row = 0; row < terminal.rows; row++) {
+    for (let column = 0; column < terminal.columns; column++) {
+      const character = terminal.cells[row * terminal.columns + column];
+      if (character !== ' ') drawIE15Glyph(context, character, column * IE15_CELL_WIDTH, row * IE15_CELL_HEIGHT);
+    }
+  }
+}
+
+function drawIE15Illustrations() {
+  for (const element of document.querySelectorAll('[data-rom-art]')) {
+    const lines = element.textContent.split('\n');
+    const picture = document.createElement('canvas');
+    const scale = Number(element.dataset.romScale || 1.5);
+    const columns = Math.max(...lines.map(line => [...line].length));
+    picture.width = columns * IE15_CELL_WIDTH;
+    picture.height = lines.length * IE15_CELL_HEIGHT;
+    picture.className = 'rom-art-canvas';
+    picture.setAttribute('aria-hidden', 'true');
+    picture.style.width = picture.width * scale + 'px';
+    picture.style.height = 'auto';
+    const context = picture.getContext('2d');
+    context.fillStyle = '#a6dc90';
+    for (const [row, line] of lines.entries()) {
+      for (const [column, character] of [...line].entries()) {
+        drawIE15Glyph(context, character, column * IE15_CELL_WIDTH, row * IE15_CELL_HEIGHT);
+      }
+    }
+    element.replaceChildren(picture);
+  }
+}
+
+
+const $ = id => document.getElementById(id);
+const canvas = $('terminal'), ctx = canvas.getContext('2d');
+const held = new Set();
+let image, originalData, machine, playing = false, paused = false, sound = false;
+let audioContext, previousTime = 0, accumulator = 0, lastRevision = -1;
+let direction = 0, lastFire = -10;
+const FRAME_MS = 20;
+const DISK_KEY = 'mars-return.disk.v1.original';
+const SOUND_KEY = 'mars-return.sound.v1';
+
+function message(text) { $('message').textContent = text; }
+function disk() {
+  try {
+    const saved = localStorage.getItem(DISK_KEY);
+    if (saved) {
+      const bytes = Uint8Array.from(atob(saved), c => c.charCodeAt(0));
+      if (bytes.length === 1024) return bytes;
+    }
+  } catch { /* Private browsing can disable storage. */ }
+  return originalData.slice();
+}
+function saveDisk(bytes) {
+  try { localStorage.setItem(DISK_KEY, btoa(String.fromCharCode(...bytes))); }
+  catch { message('Рекорды доступны до закрытия вкладки: браузер запретил постоянное хранение.'); }
+}
+function bell() {
+  if (!sound || !audioContext) return;
+  const oscillator = audioContext.createOscillator(), gain = audioContext.createGain();
+  oscillator.type = 'square'; oscillator.frequency.value = 880;
+  gain.gain.setValueAtTime(.025, audioContext.currentTime);
+  gain.gain.exponentialRampToValueAtTime(.001, audioContext.currentTime + .07);
+  oscillator.connect(gain); gain.connect(audioContext.destination);
+  oscillator.start(); oscillator.stop(audioContext.currentTime + .08);
+}
+function draw(force = false) {
+  const terminal = machine?.terminal;
+  if (!force && terminal?.revision === lastRevision) return;
+  lastRevision = terminal?.revision ?? -1;
+  ctx.fillStyle = '#061009'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+  if (!terminal) return;
+  drawIE15Screen(ctx, terminal);
+}
+function readout() {
+  if (!machine?.inGame) return;
+  const stats = machine.stats();
+  $('people').firstChild.textContent = String(stats.people).padStart(2, '0');
+  $('enemies').textContent = String(stats.remaining).padStart(2, '0');
+  $('kills').textContent = String(stats.destroyed).padStart(2, '0');
+}
+function clearControls() {
+  held.clear();
+  if (direction && machine?.inGame) machine.send(53);
+  direction = 0;
+}
+function setPaused(value) {
+  if (!playing) return;
+  paused = value; accumulator = 0; clearControls();
+  $('pause-panel').hidden = !paused;
+  $('pause').textContent = paused ? 'Продолжить' : 'Пауза';
+  $('status').textContent = paused ? 'ПАУЗА' : 'НА СВЯЗИ';
+  if (!paused) canvas.focus({ preventScroll: true });
+}
+function showStart() {
+  clearControls(); playing = paused = false;
+  $('start-panel').hidden = false; $('pause-panel').hidden = true;
+  $('pause').disabled = true; $('pause').textContent = 'Пауза';
+  $('restart').disabled = true; $('status').textContent = 'ОЖИДАНИЕ';
+  $('start').focus({ preventScroll: true });
+  message('');
+}
+function begin() {
+  if (!image) return;
+  try {
+    machine = new MarsMachine(image, disk(), { onSave: saveDisk, onBell: bell });
+    // Use the original login and class selection, rather than patching game RAM.
+    machine.line('WEB'); machine.line('Y');
+    for (let i = 0, n = 1 + Date.now() % 71; i < n; i++) machine.tick();
+    machine.send(48 + Number($('level').value)); machine.tick();
+    if (!machine.inGame) throw new Error('Оригинальная программа не перешла к игре.');
+    held.clear(); direction = 0; lastFire = -10;
+    playing = true; paused = false; accumulator = 0; previousTime = performance.now();
+    $('start-panel').hidden = true; $('pause-panel').hidden = true;
+    $('pause').disabled = false; $('pause').textContent = 'Пауза';
+    $('restart').disabled = false; $('status').textContent = 'НА СВЯЗИ';
+    message('Стрелки — движение и остановка. 4 / 5 / 6 — управление с инерцией; 1 / 2 / 3 — скорость.');
+    canvas.focus({ preventScroll: true }); draw(true); readout();
+  } catch (error) { fail(error); }
+}
+function fail(error) {
+  playing = false; paused = false; clearControls();
+  $('pause').disabled = true; $('status').textContent = 'ОШИБКА';
+  message('Не удалось запустить игру: ' + error.message);
+  $('start-panel').hidden = false; $('pause-panel').hidden = true;
+  $('start').disabled = !image; $('start').textContent = image ? 'ПОВТОРИТЬ ↵' : 'НЕТ ДАННЫХ';
+  console.error(error);
+}
+function updateInput() {
+  const next = held.has('right') ? 1 : held.has('left') ? -1 : 0;
+  if (next !== direction) { machine.send(next === 1 ? 54 : next === -1 ? 52 : 53); direction = next; }
+  if (held.has('fire') && machine.frames - lastFire >= 4) {
+    machine.send(32); lastFire = machine.frames;
+  }
+}
+function frame(time) {
+  const elapsed = Math.min(time - previousTime, 120); previousTime = time;
+  if (playing && !paused) {
+    accumulator += elapsed;
+    try {
+      for (let i = 0; accumulator >= FRAME_MS && i < 6 && playing; i++) {
+        accumulator -= FRAME_MS; updateInput(); machine.tick();
+        if (machine.roundComplete || machine.exited) {
+          playing = false; clearControls(); $('pause').disabled = true;
+          $('status').textContent = 'ПАРТИЯ ЗАВЕРШЕНА';
+          message('Результаты — на оригинальном экране. Нажмите Enter или «Новая игра», чтобы сыграть ещё.');
+        }
+      }
+      draw(); readout();
+    } catch (error) { fail(error); }
+  }
+  requestAnimationFrame(frame);
+}
+
+$('start').addEventListener('click', begin);
+$('restart').addEventListener('click', showStart);
+$('pause').addEventListener('click', () => setPaused(!paused));
+$('resume').addEventListener('click', () => setPaused(false));
+$('sound').addEventListener('click', async () => {
+  sound = !sound;
+  if (sound) {
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) { sound = false; message('Звук в этом браузере недоступен.'); return; }
+    audioContext ??= new Audio();
+    await audioContext.resume(); bell();
+  }
+  $('sound').setAttribute('aria-pressed', String(sound));
+  $('sound').setAttribute('aria-label', sound ? 'Выключить звук' : 'Включить звук');
+  try { localStorage.setItem(SOUND_KEY, String(sound)); } catch { /* Optional preference. */ }
+});
+$('fullscreen').addEventListener('click', async () => {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else if ($('monitor').requestFullscreen) await $('monitor').requestFullscreen();
+    else { message('Полноэкранный режим недоступен в этом браузере.'); return; }
+    if (playing) canvas.focus({ preventScroll: true });
+  } catch { message('Браузер не разрешил полноэкранный режим.'); }
+});
+
+const keyControl = event => {
+  if (event.code === 'ArrowLeft' || event.code === 'KeyA') return 'left';
+  if (event.code === 'ArrowRight' || event.code === 'KeyD') return 'right';
+  if (event.code === 'Space') return 'fire';
+};
+document.addEventListener('keydown', event => {
+  if (event.target.matches('select, input, textarea, summary, a') || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (!playing) {
+    if (event.code === 'Enter' && image && !event.target.matches('button')) { event.preventDefault(); begin(); }
+    return;
+  }
+  if (['KeyP', 'Escape'].includes(event.code) || (paused && event.code === 'Enter')) {
+    event.preventDefault(); if (!event.repeat) setPaused(!paused); return;
+  }
+  const control = keyControl(event);
+  if (control) { event.preventDefault(); if (!paused) held.add(control); }
+  if (!paused && !event.repeat && /^Digit[1-6]$/.test(event.code)) {
+    event.preventDefault(); machine.send(event.code.charCodeAt(5)); direction = 0;
+  }
+});
+document.addEventListener('keyup', event => {
+  const control = keyControl(event); if (control) held.delete(control);
+});
+for (const button of document.querySelectorAll('[data-control]')) {
+  button.addEventListener('pointerdown', event => {
+    event.preventDefault();
+    if (!playing || paused) return;
+    button.setPointerCapture(event.pointerId);
+    if (button.dataset.control === 'stop') { held.delete('left'); held.delete('right'); machine.send(53); direction = 0; }
+    else held.add(button.dataset.control);
+  });
+  for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) {
+    button.addEventListener(type, () => held.delete(button.dataset.control));
+  }
+}
+window.addEventListener('blur', () => { if (playing && !paused) setPaused(true); });
+document.addEventListener('visibilitychange', () => { if (document.hidden && playing && !paused) setPaused(true); });
+
+drawIE15Illustrations();
+try {
+  const embedded = $('mars-archive');
+  if (embedded) {
+    const archive = JSON.parse(embedded.textContent);
+    image = Uint8Array.from(atob(archive.sav), c => c.charCodeAt(0));
+    originalData = Uint8Array.from(atob(archive.dat), c => c.charCodeAt(0));
+    for (const [name, bytes] of [['MARS.SAV', image], ['MARS.DAT', originalData]]) {
+      const link = document.querySelector('a[download][href="' + name + '"]');
+      if (link) { link.href = URL.createObjectURL(new Blob([bytes])); link.download = name; }
+    }
+  } else {
+    const responses = await Promise.all(['MARS.SAV', 'MARS.DAT'].map(file => fetch(new URL(file, import.meta.url))));
+    for (const response of responses) if (!response.ok) throw new Error('Файл ' + response.url.split('/').pop() + ' недоступен (' + response.status + ')');
+    const buffers = await Promise.all(responses.map(r => r.arrayBuffer()));
+    image = new Uint8Array(buffers[0]); originalData = new Uint8Array(buffers[1]);
+  }
+  if (image.length !== 7680 || originalData.length !== 1024) throw new Error('Повреждены оригинальные файлы.');
+  $('start').disabled = false; $('start').textContent = 'НАЧАТЬ ИГРУ ↵'; $('status').textContent = 'ОЖИДАНИЕ';
+  draw(true);
+} catch (error) { fail(error); }
+requestAnimationFrame(frame);
+</script>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <a class="wordmark" href="#"><span class="mark" aria-hidden="true">м</span> АРХИВ ЖИВОГО КОДА</a>
+      <span class="archive-label"><i></i> ДВК / MARS.SAV</span>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="title">
+        <div><div class="eyebrow">ИГРА, КОТОРАЯ ПОМНИТ</div><h1 id="title">МАРС<span>.</span></h1><div class="subtitle">ВОЗВРАЩЕНИЕ</div></div>
+        <div class="intro-copy"><p>Чёрный экран. Зелёные символы.<br>И четырнадцать маленьких жизней<br>под твоей защитой.</p><a class="text-link" href="#history">История возвращения <span aria-hidden="true">↙</span></a></div>
+      </section>
+      <section class="game-section" aria-label="Игра МАРС">
+        <div class="monitor-top"><span class="monitor-name"><i></i> ТЕРМИНАЛ <span>80 × 24</span></span><div class="monitor-actions"><span id="status" role="status">ЗАГРУЗКА</span><button id="sound" class="icon-button" aria-label="Включить звук" aria-pressed="false" title="Звук">♪<span class="sound-slash">/</span></button><button id="fullscreen" class="icon-button" aria-label="Во весь экран" title="Во весь экран">⛶</button></div></div>
+        <div class="monitor" id="monitor">
+          <div class="crt-bezel">
+          <div class="screen">
+            <canvas id="terminal" width="800" height="264" tabindex="0" role="img" aria-label="Зелёный экран игры МАРС со знакогенератором 15ИЭ-00-013. Стрелки — движение, пробел — огонь, P — пауза."></canvas>
+            <div class="screen-glass" aria-hidden="true"></div>
+            <div class="start-panel" id="start-panel">
+              <div class="screen-eyebrow">СИСТЕМА ГОТОВА<span class="cursor">_</span></div>
+              <pre class="alien" aria-hidden="true" data-rom-art data-rom-scale="2">  *&lt;O&gt;*  </pre>
+              <h2>СНОВА НА ПОСТУ.</h2>
+              <p>Не дай бомбам добраться до людей.<br>Прикрой их платформой. Стреляй вверх.</p>
+              <label class="level-label" for="level">ВАШ КЛАСС <span>[0–5]</span></label>
+              <div class="start-controls"><select id="level" aria-label="Класс сложности"><option value="0">Класс 0</option><option value="1">Класс 1</option><option value="2">Класс 2</option><option value="3">Класс 3</option><option value="4">Класс 4</option><option value="5">Класс 5</option></select><button id="start" class="start-button" disabled>ЗАГРУЗКА…</button></div>
+              <span class="start-note">ОРИГИНАЛЬНАЯ ПРОГРАММА · НОВАЯ ЖИЗНЬ</span>
+            </div>
+            <div class="pause-panel" id="pause-panel" hidden><span class="screen-eyebrow">СИГНАЛ ПРИОСТАНОВЛЕН</span><h2>ПАУЗА<span class="cursor">_</span></h2><button id="resume" class="start-button">ПРОДОЛЖИТЬ ↵</button></div>
+          </div>
+          </div>
+          <div class="monitor-bottom">
+            <span class="monitor-plate">МАРС<span>MARS.SAV</span></span>
+            <span class="monitor-vents" aria-hidden="true"></span>
+            <span class="monitor-power"><span class="power-led" aria-hidden="true"></span> СЕТЬ</span>
+          </div>
+        </div>
+        <div class="monitor-stand" aria-hidden="true"></div>
+        <div class="game-toolbar"><div class="key-guide"><span><kbd>←</kbd><kbd>→</kbd> платформа</span><span><kbd class="space-key">ПРОБЕЛ</kbd> огонь</span><span><kbd>P</kbd> пауза</span></div><div class="toolbar-actions"><button id="pause" disabled>Пауза</button><span> / </span><button id="restart" disabled>Новая игра</button></div></div>
+        <div class="touch-controls" aria-label="Сенсорное управление"><button data-control="left" aria-label="Влево">←</button><button data-control="stop" aria-label="Остановиться">■</button><button data-control="right" aria-label="Вправо">→</button><button data-control="fire" class="touch-fire" aria-label="Стрелять">ОГОНЬ ↑</button></div>
+        <div class="readout"><div><span class="readout-label">ЛЮДЕЙ ПОД ЗАЩИТОЙ</span><span class="readout-value" id="people">14<span> / 14</span></span></div><div><span class="readout-label">МАРСИАН ОСТАЛОСЬ</span><span class="readout-value" id="enemies">—</span></div><div><span class="readout-label">СБИТО</span><span class="readout-value" id="kills">00</span></div><div class="readout-note"><span class="tiny-person" aria-hidden="true" data-rom-art> O
+/V\
+_M_</span><p>Каждая жизнь<br>имеет значение.</p></div></div>
+        <p id="message" class="message" role="status"></p>
+      </section>
+      <section class="field-notes" aria-label="Правила игры">
+        <article><span class="note-number">01 / ПРИКРЫВАЙ</span><pre aria-hidden="true" data-rom-art> ==!== </pre><h3>Ты — последняя защита.</h3><p>Двигай платформу навстречу бомбам и перехватывай их выстрелами. На краю экрана платформа разворачивается сама.</p></article>
+        <article><span class="note-number">02 / БЕРЕГИ</span><pre aria-hidden="true" data-rom-art> O     +
+/V\    =
+_M_</pre><h3>Сначала человек. Потом крест.</h3><p>Первое попадание оставит могилку. Второе сотрёт и её. Бомбы уничтожают и людей, и оставшиеся после их гибели крестики.</p></article>
+        <article><span class="note-number">03 / КЛАССЫ</span><pre aria-hidden="true" data-rom-art>0 1 2 3 4 5</pre><h3>Шесть классов.</h3><p>В оригинальной программе можно выбрать класс от 0 до 5. Каждый класс задаёт свой набор параметров игры.</p></article>
+      </section>
+      <section class="history" id="history" aria-labelledby="history-title">
+        <div><span class="eyebrow">ЛИЧНАЯ ИСТОРИЯ / 1989 → СЕГОДНЯ</span><h2 id="history-title">Некоторые игры<br>остаются с нами.</h2></div>
+        <div class="history-copy"><p>В 1989 или 1990 году, ещё в СССР, я впервые увидел компьютер. Он стоял в институте, где работал мой отец. Чёрный экран, светящиеся зелёные символы — и игра, которую я запомнил на всю жизнь.</p><p>Внизу стояли маленькие человечки. Над ними двигалась платформа. Сверху падали бомбы. А когда бомба попадала в человечка, на его месте оставался маленький крестик.</p><p>Спустя почти сорок лет нашлись сохранившиеся файлы «Марса» для ДВК. Теперь оригинальный машинный код снова работает — прямо в браузере.</p><p class="history-last">Маленькая попытка сохранить частичку<br>компьютерного детства конца 1980-х.</p>
+        <details><summary>Что здесь осталось от оригинала <span>+</span></summary><p>Браузер исполняет неизменённый MARS.SAV на эмуляторе команд PDP‑11. Фигурки, движения, столкновения, могилки и система классов определяются оригинальной программой. Терминал воспроизводит экран 80 × 24 и кодировку КОИ‑7.</p><p>Символы рисуются по точкам ПЗУ терминала 15ИЭ‑00‑013: матрица 7 × 8 в ячейке 10 × 11. Восстановленный знакогенератор побайтно совпадает с контрольной суммой, указанной в <a href="https://github.com/mamedev/mame/blob/774a180df2b6ef9c53e48337792256817c50f768/src/devices/machine/ie15.cpp#L507-L575">MAME</a>. Точная модель терминала из воспоминаний пока не установлена.</p><p>Скорость привязана к 50 игровым циклам в секунду; точный темп исторического ДВК ещё требует сравнения с реальным компьютером. Зелёный оттенок, эффекты экрана и его пропорции в браузере не откалиброваны по конкретному историческому монитору. Стрелки, сенсорные кнопки и пауза добавлены для удобства. Рекорды сохраняются только в этом браузере.</p><p><a href="MARS.SAV" download>Скачать MARS.SAV</a> · <a href="MARS.DAT" download>Скачать MARS.DAT</a></p></details></div>
+      </section>
+    </main>
+    <footer><span>МАРС: ВОЗВРАЩЕНИЕ</span><span>СОХРАНЕНО С ПАМЯТЬЮ<span class="footer-star" aria-hidden="true">✳</span></span></footer>
+  </div>
+  <noscript><div class="noscript">Для запуска оригинальной игры включите JavaScript в браузере.</div></noscript>
+</body>
+</html>
