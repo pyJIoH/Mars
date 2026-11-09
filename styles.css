@@ -164,7 +164,8 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
   .cursor { animation: none; }
 }
 
-/* A physical CRT housing. Decoration stays outside the original 80×24 raster. */
+/* Tube curvature is applied only to the display of the original 80×24 raster. */
+.crt-filters { position: absolute; pointer-events: none; }
 .monitor-top {
   height: 40px;
   padding: 0 4px 12px;
@@ -228,6 +229,7 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
   left: var(--raster-x);
   width: calc(100% - var(--raster-x) * 2);
   height: calc(100% - var(--raster-y) * 2);
+  filter: url(#crt-curvature);
   outline: none;
 }
 #terminal:focus, #terminal:focus-visible { outline: none; }
@@ -245,8 +247,8 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
 .screen-glass::after {
   border-radius: inherit;
   background:
-    radial-gradient(ellipse at 50% 40%, transparent 55%, #0003 100%),
-    linear-gradient(165deg, #e5f4d907, transparent 22%);
+    radial-gradient(ellipse at 50% 45%, transparent 55%, #0004 100%),
+    radial-gradient(ellipse at 30% -35%, #e5f4d90d, transparent 58%);
 }
 .start-panel, .pause-panel { border-radius: inherit; }
 .monitor-bottom {
@@ -342,6 +344,8 @@ footer nav { display: flex; gap: 18px; white-space: nowrap; }
 }
 @media (max-width: 640px) {
   .monitor-top { height: 35px; padding: 0 1px 10px; }
+  /* Keep the tiny ROM glyphs readable without an extra resampling pass. */
+  #terminal { filter: none; }
   .monitor { padding: 15px 12px 0; border-radius: 15px 15px 12px 12px; }
   .monitor::before { top: 6px; width: 60px; height: 3px; }
   .crt-bezel { padding: 8px; border-radius: 24px 24px 21px 21px; }
